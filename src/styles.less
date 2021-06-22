@@ -1,0 +1,220 @@
+/* You can add global styles to this file, and also import other style files */
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+@import './app/styles/variables.less';
+@import './app/styles/components/index.less';
+@import (css) url('https://fonts.googleapis.com/css?family=Montserrat');
+
+.body-class {
+  //background-color: @background;
+  //background-image: linear-gradient(to bottom, #ffffff, #ffe6cf);
+  //background-color: @white;
+  color: @text;
+  background-image: @white;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.form-control:focus {
+  border-color: @border;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px @border;
+}
+
+.link {
+  color: @linktext;
+  text-decoration: none;
+}
+
+.link:hover {
+  color: @linktext;
+  text-decoration: underline;
+}
+
+.mat-checkbox-layout {
+  white-space: normal !important;
+}
+
+.wrap-mat-radio-label {
+  white-space: normal !important;
+}
+
+ul:not(.browser-default, nav)>li {
+  list-style-type: circle;
+}
+
+/*
+* System styles (Zeplin)
+*/
+
+.text-danger {
+  color: @error  !important;
+}
+
+.text-success {
+  color: @green  !important;
+}
+
+input::-webkit-inner-spin-button {
+  display: none;
+}
+
+.input-bg {
+  background-color: @inputbackground  !important;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.16);
+  padding-left: 10px !important;
+  border-radius: 0px;
+  height: 3rem;
+}
+
+.btn {
+  font-weight: 500;
+
+  //padding: 0px 50px !important;
+  &:disabled {
+    border: none;
+  }
+}
+
+.btn-outline-primary {
+  background-color: @white;
+  color: @orange;
+  border: 1px solid @orange;
+
+  &:hover {
+    background-color: @orange;
+    color: @white;
+  }
+}
+
+.btn-success {
+  background-color: @green;
+  color: @white;
+  border: 2px solid @green;
+  border-radius: 30px;
+  height: 50px;
+
+  &:hover {
+    background-color: @green;
+    border: 2px solid @green;
+    color: @white;
+  }
+}
+
+.btn-success-outline {
+  background-color: @white;
+  color: @green;
+  border: 2px solid @green;
+  border-radius: 30px;
+  height: 50px;
+
+  &:hover {
+    background-color: @green;
+    border: 2px solid @green;
+    color: @white;
+  }
+}
+
+.btn-default-outline {
+  background-color: @white;
+  color: @gray;
+  border: 2px solid @gray;
+  border-radius: 30px;
+  height: 50px;
+
+  &:hover {
+    background-color: @gray;
+    border: 2px solid @gray;
+    color: @white;
+  }
+}
+
+.btn-danger {
+  background-color: @error;
+  color: @white;
+  border: none;
+  border-radius: 30px;
+  font-size: 25px;
+
+  &:hover {
+    background-color: @error;
+    border: none;
+  }
+}
+
+.btn-warning-outline {
+  background-color: @white;
+  color: @orange;
+  border: 2px solid @orange;
+  border-radius: 30px;
+  height: 50px;
+
+  &:hover {
+    background-color: @orange;
+    border: 2px solid @orange;
+    color: @white;
+  }
+
+  &:focus {
+    outline: none;
+    background-color: @orange;
+    color: @white;
+  }
+}
+
+.back-btn {
+  background-color: @white;
+  color: @mid-gray;
+  border: 2px solid @mid-gray;
+  border-radius: 30px;
+  height: 50px;
+
+  &:hover {
+    background-color: @white;
+    border: 2px solid @mid-gray;
+    color: @mid-gray;
+  }
+}
+
+.btn-primary,
+.btn-primary:hover,
+.btn-primary:active,
+.btn-primary:focus {
+  background-color: @orange;
+  color: @white;
+  border: 2px solid @orange;
+  border-radius: 30px;
+  height: 50px;
+
+  &:hover {
+    background-color: @orange;
+    border: 2px solid @orange;
+    color: @white;
+  }
+}
+
+.btn-primary:disabled {
+  background-color: @white;
+  color: @mid-gray;
+  border: 2px solid @mid-gray;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+// Header
+
+.Path-208 {
+  height: 70px;
+  box-shadow: 0 15px 29px 0 rgba(237, 237, 237, 0.57);
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+.Join-Now {
+  width: 150px;
+  height: 50px;
+  border-radius: 35px;
+  border: solid 3px var(--orange);
+  font-family: Montserrat;
+  font-size: 18px;
+  font-weight: 600;
+  font-style: normal
+}

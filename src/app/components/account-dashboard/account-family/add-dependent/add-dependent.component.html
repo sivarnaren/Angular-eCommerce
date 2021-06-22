@@ -1,0 +1,188 @@
+<div class="container">
+  <div class="row justify-content-around  h-100 mt-5">
+    <div class="col-lg-3 col-md-12 h-auto d-inline-block   my-auto hub-container">
+      <div (click)="goToDashboard()">
+        <label class="my-hub"><i class="material-icons"> arrow_back </i>{{ 'my_family.hub_lbl' | translate }}</label>
+      </div>
+    </div>
+    <div class="col-lg-6 col-md-12 text-center  my-auto">
+      <div class="mb-0">
+        <label class="my-family-title">{{ 'my_family_add_dependent.title_lbl' | translate }}</label>
+      </div>
+      <label for="validationCustom01">{{ 'my_family_add_dependent.sub_title_lbl' | translate }}</label>
+    </div>
+    <div class="col-lg-3 col-md-12"></div>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="col-lg-6">
+      <form [formGroup]="addMemberForm" (ngSubmit)="addDependentMember()">
+        <div class="row">
+          <div class="form-group col-6">
+            <input
+              type="text"
+              class="form-control input-bg"
+              formControlName="first_name"
+              placeholder="{{ 'my_family_add_dependent.first_name_input' | translate }}"
+              required
+            />
+            <p class="mt-1 text-danger" *ngIf="(firstName.dirty || firstName.touched) && !!firstName.errors?.required">
+              {{ 'form_errors.first_name_required' | translate }}
+            </p>
+          </div>
+          <div class="form-group col-6">
+            <input
+              type="text"
+              class="form-control input-bg"
+              formControlName="last_name"
+              placeholder="{{ 'my_family_add_dependent.last_name_input' | translate }}"
+              required
+            />
+            <p class="mt-1 text-danger" *ngIf="(lastName.dirty || lastName.touched) && !!lastName.errors?.required">
+              {{ 'form_errors.last_name_required' | translate }}
+            </p>
+          </div>
+        </div>
+        <div class="form-group">
+          <select class="browser-default custom-select" formControlName="member_relation_type_id">
+            <option disabled="true" selected="true" value="0">
+              {{ 'my_family_add_dependent.relationship_default_input' | translate }}
+            </option>
+            <option *ngFor="let item of relationTypes" value="{{ item.lookup_member_relation_type_id }}">{{ item.display_value }}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>{{ 'my_family_add_dependent.gender_lbl' | translate }}</label>
+          <select class="browser-default custom-select input-bg" formControlName="gender_id">
+            <option disabled="true" selected="true" value="0"> {{ 'my_family_add_dependent.gender_default_input' | translate }}</option>
+            <option *ngFor="let item of genderList" value="{{ item.gender_id }}"> {{ item.gender }}</option>
+          </select>
+        </div>
+        <div class="form-group text-center">
+          <p class="profile-edit-title">{{ 'my_profile.date_of_birth' | translate }}:</p>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <select class="form-control input-bg" formControlName="month">
+                  <option disabled="true" selected="true" value="0">MM</option>
+                  <option [ngValue]="month.id" *ngFor="let month of months">{{ month.name }}</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-4 ml-auto">
+              <div class="form-group">
+                <select class="form-control input-bg" formControlName="day">
+                  <option selected="true" value="0">DD</option>
+                  <option [ngValue]="day" *ngFor="let day of days">{{ day }}</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-3 padding-none">
+              <div class="form-group">
+                <select class="form-control input-bg" formControlName="year">
+                  <option disabled="true" selected="true" value="0">YYYYY</option>
+                  <option [ngValue]="year" *ngFor="let year of years">{{ year }}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="text-center">
+          <span>{{ 'my_family_add_dependent.physician_title_lbl' | translate }}</span>
+        </div>
+
+        <div class="row justify-content-around">
+          <div class="form-group col-6">
+            <input
+              type="text"
+              class="form-control input-bg"
+              placeholder="{{ 'my_family_add_dependent.first_name_input' | translate }}"
+              formControlName="physicianFirstName"
+              required
+            />
+            <p
+              class="mt-1 text-danger"
+              *ngIf="(physicianFirstName.dirty || physicianFirstName.touched) && !!physicianFirstName.errors?.required"
+            >
+              {{ 'form_errors.first_name_required' | translate }}
+            </p>
+          </div>
+          <div class="form-group col-6">
+            <input
+              type="text"
+              class="form-control input-bg"
+              placeholder="{{ 'my_family_add_dependent.last_name_input' | translate }}"
+              formControlName="physicianLastName"
+              required
+            />
+            <p
+              class="mt-1 text-danger"
+              *ngIf="(physicianLastName.dirty || physicianLastName.touched) && !!physicianLastName.errors?.required"
+            >
+              {{ 'form_errors.last_name_required' | translate }}
+            </p>
+          </div>
+        </div>
+        <div class="form-group">
+          <input
+            type="text"
+            class="form-control input-bg"
+            placeholder="{{ 'my_family_add_dependent.physician_phonenumber_input' | translate }}"
+            formControlName="physicianPhoneNumber"
+            mask="(000) 000-0000"
+            appOnlyNumbers="true"
+            required
+          />
+          <p
+            class="mt-1 text-danger"
+            *ngIf="(physicianPhoneNumber.dirty || physicianPhoneNumber.touched) && !!physicianPhoneNumber.errors?.required"
+          >
+            {{ 'form_errors.phone_number_required' | translate }}
+          </p>
+        </div>
+        <div class="form-group">
+          <input
+            type="text"
+            class="form-control input-bg"
+            placeholder="{{ 'my_family_add_dependent.physician_fax_input' | translate }}"
+            formControlName="physicianFaxNumber"
+            mask="(000) 000-0000"
+            appOnlyNumbers="true"
+            required
+          />
+          <p
+            class="mt-1 text-danger"
+            *ngIf="(physicianFaxNumber.dirty || physicianFaxNumber.touched) && !!physicianFaxNumber.errors?.required"
+          >
+            {{ 'form_errors.fax_number_required' | translate }}
+          </p>
+        </div>
+
+        <div class="form-check">
+          <mat-checkbox formControlName="havePhysician" (click)="showPysicianControl()">
+            {{ 'my_family_add_dependent.check_box_lbl' | translate }}
+          </mat-checkbox>
+        </div>
+
+        <div class="row">
+          <div class="col-12 text-center">
+            <span>
+              {{ 'my_family_add_dependent.advice_lbl' | translate }}
+            </span>
+          </div>
+          <div class="col d-flex justify-content-center">
+            <button type="button" class="btn btn-primary btn-block" (click)="cancel()">
+              {{ 'my_family_add_dependent.cancel_btn' | translate }}
+            </button>
+          </div>
+          <div class="col d-flex justify-content-center">
+            <button type="submit" class="btn btn-primary btn-block" [disabled]="!addMemberForm.valid">
+              {{ 'my_family_add_dependent.save_btn' | translate }}
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

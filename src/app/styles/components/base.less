@@ -1,0 +1,164 @@
+@import '../variables.less';
+
+// title on the components screens
+.title {
+  font-size: 54px;
+  font-weight: 500;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.33;
+  letter-spacing: -0.3px;
+}
+
+.subtitle {
+  font-size: 30px;
+  font-weight: bold;
+  font-stretch: normal;
+  line-height: 1.2;
+  letter-spacing: -0.1px;
+  color: @green;
+}
+
+.my-hub {
+  font-family: Montserrat;
+  font-size: 24px;
+  font-weight: 500;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.46;
+  letter-spacing: normal;
+  text-align: left;
+  color: @mid-gray;
+}
+
+// cards
+
+.card {
+  border: none;
+  border-radius: 0px !important;
+}
+
+.card-title {
+  color: @white;
+  font-size: 16px;
+}
+
+.card-content {
+  font-size: 20px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.2;
+  letter-spacing: normal;
+  color: @light-black;
+}
+
+.card-success-header {
+  vertical-align: middle;
+  background-color: @green;
+  color: @white;
+}
+
+.card-default-header {
+  vertical-align: middle;
+  background-color: @gray;
+}
+
+.card-warning-header {
+  vertical-align: middle;
+  background-color: @orange;
+}
+
+.card-unavailable-header {
+  vertical-align: middle;
+  background-color: @light-gray-2;
+}
+
+.card-success {
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.16);
+  background-image: linear-gradient(to bottom, @white, #d1eadc);
+}
+
+.card-default {
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.16);
+  background-color: @white;
+}
+
+.card-warning {
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.16);
+  background-image: linear-gradient(to bottom, @white, #ffe6cf);
+}
+
+.card-unavailable {
+  background-color: @white;
+  border-top: transparent !important;
+  border-color: @light-gray-2;
+  border-style: dashed;
+}
+
+.toggle-text {
+  font-size: 16px;
+  font-weight: 500;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.19;
+  letter-spacing: normal;
+  text-align: right;
+  color: @light-black
+}
+
+.btn-flat-icon, .btn-flat-icon:hover {
+  background-color: @white;
+  border-radius: 0px;
+  border: none;
+  box-shadow: none;
+  color: @green;
+  font-weight: 500;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.46;
+  letter-spacing: normal;
+  text-align: center;
+}
+
+
+// Angular material ovewride
+
+
+
+
+// check box
+.switch label input[type=checkbox]:checked+.lever {
+  background-color: @green;
+}
+
+.switch label input[type=checkbox]:checked+.lever:after {
+  background-color: @white;
+}
+
+.switch label .lever:after {
+  background-color: @white;
+}
+
+.switch label .lever {
+  background-color: @orange;
+}
+
+// my hub btn
+.btn-my-hub, .btn-my-hub:hover {
+  background-color: @white;
+  border-radius: 0px;
+  border: none;
+  box-shadow: none;
+  color: @mid-gray;
+  font-size: 24px;
+  font-weight: 500;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.46;
+  letter-spacing: normal;
+  text-align: center;
+  text-decoration: none;
+  text-transform: none;
+  padding-left: 0px;
+}

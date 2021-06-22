@@ -1,0 +1,45 @@
+<ng-template #content let-modal>
+  <div class="modal-body text-center">
+    <!-- @Jorge fix to modals -->
+    <input style="display: none" />
+    <div class="">
+      <h3 class="mb-3 myfamily-add-member-title">{{ 'my_family_edit_member.title_lbl' | translate }}</h3>
+    </div>
+
+    <form [formGroup]="profileForm">
+      <div class="form-group">
+        <input
+          type="text"
+          class="form-control"
+          formControlName="first_name"
+          placeholder="{{ 'my_family_edit_member.first_name_input' | translate }}"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <input
+          type="text"
+          class="form-control"
+          formControlName="last_name"
+          placeholder="{{ 'my_family_edit_member.last_name_input' | translate }}"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <input
+          type="text"
+          class="form-control"
+          formControlName="email"
+          placeholder="{{ 'my_family_edit_member.email_input' | translate }}"
+          required
+        />
+      </div>
+      <div class="mt-5">
+        <span>{{ 'my_family_edit_member.remove_btn' | translate }}</span>
+      </div>
+    </form>
+  </div>
+</ng-template>
+<button type="button" (click)="open(content)" class="btn-profile">
+  {{ 'my_family.view_btn' | translate }}
+</button>

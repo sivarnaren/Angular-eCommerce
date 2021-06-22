@@ -1,0 +1,242 @@
+@import '../variables.less';
+
+
+
+.my-hub-title {
+  .title;
+  color: @green;
+}
+
+.my-hub-container {
+  max-width: 90%;
+
+}
+
+.single-line-row {
+  align-items: center;
+  justify-content: center;
+}
+
+
+// cards
+.my-hub-div-card {
+  text-align: -webkit-center;
+}
+
+.my-hub-card {
+  width: 320px;
+  //min-height: 220px;
+  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
+}
+
+.my-hub-card-orange {
+  .my-hub-card;
+  background-image: linear-gradient(to bottom, #ffffff, #ffe6cf);
+}
+
+.my-hub-card-green {
+  .my-hub-card;
+  background-color: @bkg-gray;
+}
+
+.my-hub-col-box {
+  margin-top: 60px;
+  text-align: -webkit-center
+}
+
+.hub-card-body-green {
+  width: 320px;
+  background-color: @bkg-gray;
+}
+
+.hub-card-title {
+  width: 320px;
+  height: 66px;
+  line-height: 66px;
+  text-align: center;
+  padding: 0%;
+  background-color: @green;
+}
+
+// box titles
+
+
+
+.my-hub-box-title {
+  font-size: 24px;
+  font-weight: 600;
+  font-style: normal;
+  font-stretch: normal;
+  letter-spacing: normal;
+  color: @white;
+  display: inline-block;
+  vertical-align: middle;
+  line-height: normal;
+}
+
+.my-hub-box-text {
+  font-size: 20px;
+  font-weight: 500;
+  font-style: normal;
+  font-stretch: normal;
+  letter-spacing: normal;
+  text-align: center;
+  color: @black;
+}
+
+.my-hub-box-text .text-style-3 {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+
+
+// btns
+.my-hub-warning-btn {
+  background-color: @orange;
+  width: 242px;
+  height: 50px;
+  color: @white;
+  border: 2px solid @orange;
+  border-radius: 30px;
+  font-size: 24px;
+
+  &:hover {
+    background-color: @orange;
+    border: 2px solid @orange;
+    color: @white;
+  }
+}
+
+
+.my-hub-ide-smart-btn {
+  background-color: @orange;
+  width: 195px;
+  height: 40px;
+  color: @white;
+  border: 2px solid @orange;
+  border-radius: 30px;
+  font-size: 20px;
+
+  &:hover {
+    background-color: @orange;
+    border: 2px solid @orange;
+    color: @white;
+  }
+}
+
+.nopadding {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.my-hub-link-btn,
+.my-hub-link-btn:hover {
+  background-color: transparent;
+  border-radius: 0px;
+  border: none;
+  box-shadow: none;
+  color: @green;
+  font-size: 20px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.2;
+  letter-spacing: normal;
+  text-align: center;
+  vertical-align: -webkit-baseline-middle;
+}
+
+.myhub-credits-available-outline {
+  background-color: #FFFFFF;
+  color: #ff9331;
+  border: 2px solid #ff9331;
+  border-radius: 50px;
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  vertical-align: -webkit-baseline-middle;
+  font-size: 30px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 0.97;
+  letter-spacing: -0.2px;
+  text-align: center;
+  color: var(--orange);
+}
+
+.my-hub-btn-icon {
+  top: 7px;
+  position: relative;
+}
+
+
+// Special Text
+.my-hub-my-credits {
+  margin-left: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.61;
+  letter-spacing: -0.1px;
+  text-align: center;
+  color: @green;
+}
+
+.ide-special-text {
+  color: @orange;
+}
+
+.open-orders-special-text {
+  color: @green;
+}
+
+
+@media only screen and (min-width: 993px) {
+  .container {
+    width: 85%;
+  }
+}
+
+@media only screen and (max-width: 993px) {
+  .container {
+    width: 100%;
+  }
+}
+
+@media only screen and (max-width: 1000px) {
+
+
+  .container {
+    width: 100%;
+
+  }
+
+  .my-hub-title {
+    font-size: 38px;
+    font-weight: 500;
+  }
+
+  .my-hub-warning-btn {
+    width: 227px;
+  }
+
+  .my-hub-ide-smart-btn {
+    width: 175px;
+    font-size: 15px
+  }
+
+  .col-2 {
+    min-width: 65px;
+  }
+
+}
+
+@media only screen and (max-width: 400px) {
+  .container {
+    padding-right: 3px;
+    padding-left: 3px;
+  }
+}

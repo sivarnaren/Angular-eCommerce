@@ -1,0 +1,208 @@
+<div class="container">
+
+  <div class="row mt-5">
+    <div class="col-md-12">
+      <div class="float-left"><a class="btn btn-my-hub" [routerLink]="['../']">
+          <i class="material-icons"> arrow_back </i> My Hub
+        </a></div>
+      <div class="float-right">
+        <button class="btn btn-flat-icon" (click)="editMyProfile();">
+          <i class="material-icons">
+            border_color
+          </i> {{ 'my_profile.edit' | translate }}
+        </button>
+      </div>
+      <div class="text-center d-none d-lg-block">
+        <p class="title">{{ 'my_profile.title' | translate }}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-5">
+
+    <!-- Account Sidemenu -->
+    <div class="col-md-3">
+      <app-account-side-menu [componentName]="'my-profile'"></app-account-side-menu>
+    </div>
+
+    <!-- Personal Information No Edit -->
+    <div class="col-md-6" *ngIf="!editProfile">
+      <p class="profile-title"> {{firstName.value}} {{lastName.value}} </p>
+      <p class="profile-description">{{ 'my_profile.gender' | translate }}: <strong
+          class="profile-title">{{gender.value}}</strong> </p>
+      <p class="profile-description">{{ 'my_profile.date_of_birth' | translate }}: <strong class="profile-title">
+          {{dateOfBirth.value | date}}
+        </strong> </p>
+      <p class="profile-title"> {{email.value}} </p>
+      <p class="profile-description">{{ 'my_profile.billing_phone' | translate }}: <strong class="profile-title">
+          {{billingPhone.value | phone}} </strong> </p>
+      <p class="profile-description mb-3"> {{ 'my_profile.mobile_phone' | translate }}: <strong class="profile-title">
+          {{mobilePhone.value | phone}} </strong>
+      </p>
+      <p class="primary-text">{{ 'my_profile.allergies_coditions_medications' | translate }}</p>
+    </div>
+
+    <!-- Personal Information Edit -->
+    <div class="col-md-8" *ngIf="editProfile">
+      <form [formGroup]="myProfileForm" (ngSubmit)="saveMyProfileInformation()" novalidate>
+        <div class="row">
+          <div class="col-md-6 padding-none">
+            <div class="form-group">
+              <input type="text" class="form-control input-bg" placeholder="First Name" formControlName="firstName">
+            </div>
+            <p class="mt-1 text-danger" *ngIf="(firstName.dirty || firstName.touched) && !!firstName.errors?.required">
+              {{ 'form_errors.first_name_required' | translate }}
+            </p>
+          </div>
+          <div class="col-md-6 padding-none">
+            <div class="form-group">
+              <input type="text" class="form-control input-bg" placeholder="Last Name" formControlName="lastName">
+              <p class="mt-1 text-danger" *ngIf="(lastName.dirty || lastName.touched) && !!lastName.errors?.required">
+                {{ 'form_errors.last_name_required' | translate }}
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-3 padding-none">
+            <p class="profile-edit-title"> {{ 'my_profile.gender' | translate }}: </p>
+          </div>
+          <!--<mat-radio-group formControlName="genderId">
+            <div class="row mb-0">
+              <div class="col-md-6 padding-none">
+                <mat-radio-button class="checkbox-form" [value]="1">
+                  <h5 class="checkbox-text">{{ 'my_profile_placeholders.male' | translate }}</h5>
+                </mat-radio-button>
+              </div>
+              <div class="col-md-6 padding-none">
+                <mat-radio-button class="checkbox-form" [value]="2">
+                  <h5 class="checkbox-text">{{ 'my_profile_placeholders.female' | translate }}</h5>
+                </mat-radio-button>
+              </div>
+            </div>
+          </mat-radio-group>-->
+          <div class="col-md-3 padding-none">
+            <div class="form-group">
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="checkMale" formControlName="maleGender">
+                <label class="custom-control-label checkbox-text"
+                  for="checkMale">{{ 'my_profile_placeholders.male' | translate }}</label>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3 padding-none">
+            <div class="form-group">
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="checkFemale" formControlName="femaleGender">
+                <label class="custom-control-label checkbox-text"
+                  for="checkFemale">{{ 'my_profile_placeholders.female' | translate }}</label>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="row">
+          <div class="col-md-3 padding-none">
+            <p class="profile-edit-title"> {{ 'my_profile.date_of_birth' | translate }}: </p>
+          </div>
+          <div class="col-md-3 padding-none">
+            <div class="form-group">
+              <select class="form-control input-bg" formControlName="month">
+                <option disabled [ngValue]="null">MM</option>
+                <option [ngValue]="month.id" *ngFor="let month of months">{{month.name}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-3 padding-none">
+            <div class="form-group">
+              <select class="form-control input-bg" formControlName="day">
+                <option disabled [ngValue]="null">DD</option>
+                <option [ngValue]="day" *ngFor="let day of days">{{day}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-3 padding-none">
+            <div class="form-group">
+              <select class="form-control input-bg" formControlName="year">
+                <option disabled [ngValue]="null">YYYY</option>
+                <option [ngValue]="year" *ngFor="let year of years">{{year}}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 padding-none">
+            <div class="form-group">
+              <input type="text" class="form-control input-bg" placeholder="Email Address" formControlName="email">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4 padding-none">
+            <p class="profile-edit-title"> {{ 'my_profile.billing_phone' | translate }}: </p>
+          </div>
+          <div class="col-md-8 padding-none">
+            <div class="form-group">
+              <input type="text" class="form-control input-bg" placeholder="(###) #######"
+                formControlName="billingPhone" mask='(000) 000-0000'>
+              <p class="mt-1 text-danger"
+                *ngIf="(billingPhone.dirty || billingPhone.touched) && !!billingPhone.errors?.required">
+                {{ 'my_profile_errors.billing_phone_required' | translate }}
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4 padding-none">
+            <p class="profile-edit-title"> {{ 'my_profile.mobile_phone' | translate }}: </p>
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="sameBillingCheck"
+                formControlName="billingPhoneSameShipping">
+              <label class="custom-control-label checkbox-same-billing"
+                for="sameBillingCheck">{{ 'my_profile.same_as_billing' | translate }}</label>
+            </div>
+          </div>
+          <div class="col-md-8 p-0">
+            <div class="form-group">
+              <input type="text" class="form-control input-bg" placeholder="(###) #######" formControlName="mobilePhone"
+                mask='(000) 000-0000'> <!-- (keypress)="onSearchChange()" -->
+              <p class="mt-1 text-danger"
+                *ngIf="(mobilePhone.dirty || mobilePhone.touched) && !!mobilePhone.errors?.required">
+                {{ 'my_profile_errors.mobile_phone_required' | translate }}
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="row text-right" *ngIf="editProfile">
+          <div class="col-md-12">
+            <button class="btn btn-success custom-btn-block" type="submit"
+              [disabled]="!myProfileForm.valid">{{ 'my_profile.save' | translate }}</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <!-- Emergency Contact Information No Edit -->
+    <div class="col-md-3 text-left" *ngIf="!editProfile">
+      <p class="profile-description emergency-info-title"> {{ 'my_profile.emergency_info_title' | translate }} </p>
+      <p class="profile-title"> {{emergencyContactName.value}} </p>
+      <p class="profile-title"> {{emergencyContactPhone.value | phone}} </p>
+      <p class="profile-title"> {{emergencyContactRelationship.value}} </p>
+    </div>
+
+    <!-- Emergency Contact Information Edit -->
+    <!--<div class="col-md-3 text-left" *ngIf="editProfile">
+      <p class="profile-description"> Emergency Contact Information </p>
+      <div class="form-group">
+        <input type="text" class="form-control input-bg" placeholder="Name">
+      </div>
+      <div class="form-group">
+        <input type="text" class="form-control input-bg" placeholder="Phone Number">
+      </div>
+      <div class="form-group">
+        <input type="text" class="form-control input-bg" placeholder="Relationship">
+      </div>
+    </div>-->
+  </div>
+
+</div>

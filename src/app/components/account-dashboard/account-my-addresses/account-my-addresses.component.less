@@ -1,0 +1,54 @@
+@import '../../../styles/variables.less';
+
+::ng-deep .pac-container {
+    z-index: 100000;
+  }
+
+.title {
+    color: @green;
+}
+
+.title-modal {
+    font-size: 24px;
+}
+
+.title-delete-modal {
+    color: @error;
+}
+
+.my-address-card-title {
+    font-size: 16px;
+}
+
+.my-address-card-header {
+    font-size: 14px;
+    color: @white;
+}
+
+.address-information-text {
+    font-size: 20px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.2;
+    letter-spacing: normal;
+    color: @light-black
+}
+
+.add-new-address-text {
+        font-size: 24px;
+        font-weight: bold;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.58;
+        letter-spacing: -0.1px;
+        color: @light-black;
+}
+
+.card {
+    min-height: 250px;
+
+    @media (max-width: 767px) {
+       min-height: 0px;
+    }
+}

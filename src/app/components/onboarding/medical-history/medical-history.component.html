@@ -1,0 +1,144 @@
+<div class="row">
+  <div class="col-md-12 text-center">
+    <h1 class="text-center title mb-0">{{'medical_history.title' | translate}}</h1>
+    <h5 class="text-center subtitle mt-0 mb-4">
+      {{'medical_history.subtitle' | translate}} <br />
+      <span>{{'medical_history.reminder' | translate}}
+      </span>
+    </h5>
+  </div>
+</div>
+
+<!-- Stepper -->
+<div class="row justify-content-md-center">
+  <div class="steps-form">
+    <div class="steps-row setup-panel">
+      <div class="steps-step">
+        <button class="btn-step" disabled> <i class="material-icons">check</i> </button>
+      </div>
+      <div class="steps-step">
+        <button class="btn-step"> 2 </button>
+      </div>
+      <div class="steps-step">
+        <button class="btn-step" disabled> 3 </button>
+      </div>
+      <div class="steps-step">
+        <button class="btn-step" disabled> <i class="material-icons">flag</i></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row text-center">
+  <div class="col-lg-8 mt-2 mx-auto">
+    <!-- Allergies Information -->
+
+    <label class="header">{{'medical_history.allergies_title' | translate}}</label>
+    <mat-radio-group [(ngModel)]="haveAllergies" (ngModelChange)="allergyModelChange()">
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <mat-radio-button class="radio-form" [value]="true">
+            <h5 class="radio-text">{{'medical_history.checkbox_yes' | translate}}</h5>
+          </mat-radio-button>
+        </div>
+        <div class="col-md-6">
+          <mat-radio-button class="radio-form" [value]="false">
+            <h5 class="radio-text">NO</h5>
+          </mat-radio-button>
+        </div>
+      </div>
+    </mat-radio-group>
+
+    <div *ngIf="haveAllergies">
+      <div class="row">
+        <div class="col-md-4" *ngFor="let item of selectedAllergies; let i = index">
+          <div>
+            <ng-template #rt let-r="result" let-t="term">
+              <ngb-highlight [result]="r.display_value" [term]="t"></ngb-highlight>
+            </ng-template>
+            <input placeholder="Allergy" id="typeahead-basic" type="text" class="form-control input-bg"
+              [(ngModel)]="allergiesModels[i]" [ngbTypeahead]="searchAllergies" [resultTemplate]="rt"
+              [inputFormatter]="formatter" (ngModelChange)="onChangeAllergies($event, i)" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Conditions Information -->
+
+    <label class="header">{{'medical_history.conditions_title' | translate}}</label>
+    <mat-radio-group [(ngModel)]="haveConditions" (ngModelChange)="conditionModelChange()">
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <mat-radio-button class="radio-form" [value]="true">
+            <h5 class="radio-text">{{'medical_history.checkbox_yes' | translate}}</h5>
+          </mat-radio-button>
+        </div>
+        <div class="col-md-6">
+          <mat-radio-button class="radio-form" [value]="false">
+            <h5 class="radio-text">NO</h5>
+          </mat-radio-button>
+        </div>
+      </div>
+    </mat-radio-group>
+
+    <div *ngIf="haveConditions">
+      <div class="row">
+        <div class="col-md-4" *ngFor="let item of selectedConditions; let i = index">
+          <div>
+            <ng-template #rc let-r="result" let-t="term">
+              <ngb-highlight [result]="r.display_value" [term]="t"></ngb-highlight>
+            </ng-template>
+            <input placeholder="Condition" id="typeahead-basic" type="text" class="form-control input-bg"
+              [(ngModel)]="conditionsModels[i]" [ngbTypeahead]="searchConditions" [resultTemplate]="rc"
+              [inputFormatter]="formatter" (ngModelChange)="onChangeConditions($event, i)" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Medications Information -->
+
+    <label class="header">{{'medical_history.medications_title' | translate}}</label>
+    <mat-radio-group [(ngModel)]="takingMedications" (ngModelChange)="medicationModelChange()">
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <mat-radio-button class="radio-form" [value]="true">
+            <h5 class="radio-text">{{'medical_history.checkbox_yes' | translate}}</h5>
+          </mat-radio-button>
+        </div>
+        <div class="col-md-6">
+          <mat-radio-button class="radio-form" [value]="false">
+            <h5 class="radio-text">NO</h5>
+          </mat-radio-button>
+        </div>
+      </div>
+    </mat-radio-group>
+
+    <div *ngIf="takingMedications">
+      <div class="row">
+        <div class="col-md-4" *ngFor="let item of selectedMedications; let i = index">
+          <div>
+            <ng-template #rm let-r="result" let-t="term">
+              <ngb-highlight [result]="r.display_value" [term]="t"></ngb-highlight>
+            </ng-template>
+            <input placeholder="Medication" id="typeahead-basic" type="text" class="form-control input-bg"
+              [(ngModel)]="medicationsModel[i]" [ngbTypeahead]="searchMedications" [resultTemplate]="rm"
+              [inputFormatter]="formatter" (ngModelChange)="onChangeMedications($event, i)" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row justify-content-md-center">
+  <div class="col-lg-8">
+    <button class="btn back-btn" type="button" (click)="userAction('back')">
+      {{'medical_history.back_btn' | translate}}
+    </button>
+    <button class="btn btn-success float-right" type="button" (click)="nextStep()" [disabled]="disableNext">
+      {{'medical_history.next_btn' | translate}}
+    </button>
+  </div>
+</div>

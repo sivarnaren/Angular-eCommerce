@@ -1,0 +1,222 @@
+<div class="row justify-content-center   mt-5">
+  <div class="col text-center  my-auto">
+    <label class="my-hub-title">{{ 'my_hub.title_lbl' | translate }}</label>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <!-- First col-->
+    <div class="col-lg-4 col-md-6 col-sm-12">
+      <!-- On Demand Care-->
+      <div class="my-hub-div-card">
+        <div class="card my-hub-card-orange">
+          <div class="card-header hub-card-title text-center">
+            <span class="my-hub-box-title"> {{ 'my_hub.col1_box1_title_lbl' | translate }}</span>
+          </div>
+
+          <div class="card-body  text-center">
+            <div class="mb-2 " style="vertical-align: middle;">
+              <img src="../../../assets/images/on-demand.png" alt="On Demand Care" />
+              <p class="mb-0 pt-0 my-hub-box-text">
+                {{ 'my_hub.col1_box1_body1_lbl' | translate }}
+              </p>
+            </div>
+
+            <button type="button" class="my-hub-warning-btn">{{ 'my_hub.col1_box1_btn1' | translate }}</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- MY membership plan -->
+      <div class="my-hub-div-card">
+        <div class="card my-hub-card-green">
+          <div class="card-header hub-card-title text-center">
+            <span class="my-hub-box-title"> {{ 'my_hub.col1_box2_title_lbl' | translate }}</span>
+          </div>
+
+          <div class="card-body  hub-card-body -green text-center">
+            <div class="mb-2 " style="vertical-align: middle;">
+              <span>
+                {{ 'my_hub.col1_box2_body1_lbl' | translate }} <b>{{ renewalDate }}</b>
+              </span>
+              <div class="row justify-content-center">
+                <div class="mr-2">
+                  <button type="button" class="btn-success-outline">icon</button>
+                </div>
+                <div>
+                  <button type="button" class="btn-success-outline">icon</button>
+                </div>
+                <div class="ml-2">
+                  <button type="button" class="btn-success-outline">icon</button>
+                </div>
+              </div>
+            </div>
+            <button class="my-hub-link-btn">
+              {{ 'my_hub.col1_box2_btn1' | translate }}<i class="material-icons my-hub-btn-icon">keyboard_arrow_right</i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- MY care Phamily -->
+      <div class="my-hub-div-card" *ngIf="member_type_id == 1">
+        <div class="card my-hub-card-green">
+          <div class="card-header hub-card-title text-center">
+            <span class="my-hub-box-title"> {{ 'my_hub.col1_box3_title_lbl' | translate }}</span>
+          </div>
+
+          <div class="card-body  hub-card-body -green text-center">
+            <div class="mb-2 " style="vertical-align: middle;">
+              <div>
+                <span>
+                  {{ 'my_hub.col1_box3_body1_lbl' | translate }} <b> {{ addedMembers }} </b></span
+                >
+              </div>
+              <div class="row justify-content-center">
+                <span>
+                  {{ 'my_hub.col1_box3_body2_lbl' | translate }} <b>{{ addedGuests }}</b></span
+                >
+              </div>
+            </div>
+            <button type="button" class="my-hub-link-btn" (click)="goToRoute('MyPhamily')">
+              {{ 'my_hub.col1_box3_btn1' | translate }}<i class="material-icons my-hub-btn-icon">keyboard_arrow_right</i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Second col-->
+    <div class="col-lg-4 col-md-6 col-sm-12">
+      <!-- IDE Smart Assistant -->
+      <div class="my-hub-div-card">
+        <div class="card my-hub-card-orange">
+          <div class="card-header hub-card-title text-center">
+            <span class="my-hub-box-title"> {{ 'my_hub.col2_box1_title_lbl' | translate }} </span>
+          </div>
+
+          <div class="card-body    text-center">
+            <div class="mb-2" style=" vertical-align: middle;">
+              <div class="row justify-content-center">
+                <div class="col-2 nopadding">
+                  <button type="button" class="btn-success-outline">icon</button>
+                </div>
+                <div class="col-10 text-left" style="padding-right:0px; ">
+                  <span>{{ 'my_hub.col2_box1_title_lbl' | translate }}</span>
+                  <br />
+                  <span class="ide-special-text">
+                    <b>{{ 'my_hub.col2_box1_body1_lbl2' | translate }}</b>
+                  </span>
+                  <br />
+                  <span>{{ 'my_hub.col2_box1_body1_lbl3' | translate }}</span>
+                  <br />
+                  <span>{{ 'my_hub.col2_box1_body1_lbl4' | translate }}</span>
+                  <span>
+                    <b>{{ 'my_hub.col2_box1_body1_lbl5' | translate }}</b>
+                  </span>
+                  <span>{{ 'my_hub.col2_box1_body1_lbl6' | translate }}</span>
+                  <span>
+                    <b>{{ 'my_hub.col2_box1_body1_lbl7' | translate }}</b>
+                  </span>
+                  <span>{{ 'my_hub.col2_box1_body1_lbl8' | translate }}</span>
+                </div>
+              </div>
+              <div class="row justify-content-center">
+                <div class="col-2 nopadding">
+                  <button type="button" class="btn-success-outline">icon</button>
+                </div>
+                <div class="col-10 text-left" style="padding-right:0px;">
+                  <span>{{ 'my_hub.col2_box1_body2_lbl1' | translate }}</span>
+                  <span>{{ 'my_hub.col2_box1_body2_lbl2' | translate }}</span>
+                  <button type="button" class="my-hub-ide-smart-btn">{{ 'my_hub.col2_box1_btn1' | translate }}</button>
+                </div>
+              </div>
+              <div class="row justify-content-center">
+                <div class="col-2 nopadding">
+                  <button type="button" class="btn-success-outline">icon</button>
+                </div>
+                <div class="col-10 text-left" style="padding-right:0px;">
+                  <span>{{ 'my_hub.col2_box1_body3_lbl1' | translate }}</span>
+                  <span>{{ 'my_hub.col2_box1_body3_lbl2' | translate }}</span>
+                  <button type="button" class="my-hub-ide-smart-btn">{{ 'my_hub.col2_box1_btn2' | translate }}</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- third col-->
+    <div class="col-lg-4 col-md-6 col-sm-12">
+      <!-- My Order History -->
+      <div class="my-hub-div-card">
+        <div class="card my-hub-card-green">
+          <div class="card-header hub-card-title text-center">
+            <span class="my-hub-box-title"> {{ 'my_hub.col3_box1_title_lbl' | translate }} </span>
+          </div>
+
+          <div class="card-body  hub-card-body -green  text-center">
+            <div class="mb-2 " style=" vertical-align: middle;">
+              <div class="mb-2">
+                <span> {{ 'my_hub.col3_box1_body1_lbl1' | translate }} </span> <b class="open-orders-special-text"> {{ openOrders }}</b>
+              </div>
+              <button type="button" class="btn-success-outline">{{ 'my_hub.col3_box1_btn1' | translate }}</button>
+              <div class="mb-2 mt-2">
+                <span> {{ 'my_hub.col3_box1_body1_lbl2' | translate }} </span> <b>{{ completedOrders }}</b>
+              </div>
+              <button class="my-hub-link-btn">
+                {{ 'my_hub.col3_box1_btn2' | translate }}<i class="material-icons my-hub-btn-icon">keyboard_arrow_right</i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- My Profile Info -->
+
+      <div class="my-hub-div-card">
+        <div class="card my-hub-card-green">
+          <div class="card-header hub-card-title text-center">
+            <span class="my-hub-box-title">{{ 'my_hub.col3_box2_title_lbl' | translate }} </span>
+          </div>
+          <div class="card-body  hub-card-body -green text-center">
+            <div class="mb-4 " style="vertical-align: middle;">
+              <div>
+                <span> {{ 'my_hub.col3_box2_body1_lbl1' | translate }} </span>
+              </div>
+            </div>
+            <button type="button" class="btn-success-outline" (click)="goToRoute('MyInfo')">
+              {{ 'my_hub.col3_box2_btn1' | translate }}
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- My Rx Credits -->
+      <div class="my-hub-div-card" *ngIf="member_type_id == 1">
+        <div class="card my-hub-card-green">
+          <div class="card-header hub-card-title text-center">
+            <span class="my-hub-box-title">{{ 'my_hub.col3_box3_title_lbl' | translate }} </span>
+          </div>
+
+          <div class="card-body  hub-card-body -green text-center">
+            <div class="mb-2 " style=" vertical-align: middle;">
+              <div class="row single-line-row">
+                <button type="button" class="myhub-credits-available-outline">
+                  {{ aviableCredits }}
+                </button>
+                <span class="my-hub-my-credits">{{ 'my_hub.col3_box3_body1_lbl1' | translate }}</span>
+              </div>
+            </div>
+            <button class="my-hub-link-btn ">
+              {{ 'my_hub.col3_box3_btn1' | translate }}<i class="material-icons my-hub-btn-icon">keyboard_arrow_right</i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- / My Rx Credits -->
+    </div>
+    <!-- third col -->
+  </div>
+  <!-- row -->
+</div>
+<!-- container -->

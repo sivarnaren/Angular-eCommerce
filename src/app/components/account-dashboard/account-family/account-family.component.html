@@ -1,0 +1,320 @@
+<div class="container">
+  <div class="row justify-content-around  h-100 mt-5">
+    <div class="col-lg-3 col-md-12   my-auto hub-container">
+      <div (click)="goToDashboard()">
+        <label class="my-hub"><i class="material-icons"> arrow_back </i>{{ 'my_family.hub_lbl' | translate }}</label>
+      </div>
+    </div>
+    <div class="col-lg-6 col-md-12 text-center  my-auto">
+      <label class="my-family-title">{{ 'my_family.title_lbl' | translate }}</label>
+    </div>
+    <div class="col-lg-3 col-md-12"></div>
+  </div>
+  <div class="row">
+    <!-- Profile -->
+    <div class="col-md-6 col-lg-4  text-center  my-auto">
+      <div class="card my-family-card">
+        <div class="card-header family-card-warning-header">
+          <div class="row  justify-content-between ">
+            <div class="col" style="text-align: left;">
+              <label class=" my-family-box-title-left">{{ 'my_family.my_profile_title_lbl' | translate }}</label>
+            </div>
+            <div class="col" style="text-align: right; padding-right: .75rem">
+              <label class="my-family-box-title-right">{{ 'my_family.member_subtitle_lbl' | translate }} 1</label>
+            </div>
+          </div>
+        </div>
+        <div class="card-body card-warning family-card-body text-center">
+          <div class="mb-2" style="height: 90px; padding: 5px;">
+            <p class="card-content my-family-box-member-name">{{ memberFullName }}</p>
+          </div>
+          <app-account-profile></app-account-profile>
+        </div>
+      </div>
+    </div>
+
+    <!-- Family members -->
+
+    <div class=" col-md-6 col-lg-4  text-center  my-auto" *ngFor="let member of familyUsers; let i = index">
+      <div class="card my-family-card">
+        <div class="card-header  family-card-success-header">
+          <div class="row  justify-content-between ">
+            <div class="col" style="text-align: left;">
+              <label class=" my-family-box-title-left">{{ member.display_value }}</label>
+            </div>
+            <div class="col" style="text-align: right;">
+              <label class="my-family-box-title-right"> {{ 'my_family.member_subtitle_lbl' | translate }} {{ i + 2 }}</label>
+            </div>
+          </div>
+        </div>
+        <div class="card-body card-success family-card-body text-center">
+          <div class="mb-2" style="height: 90px; vertical-align: middle;">
+            <span class="pending-invitation" *ngIf="!member.is_active">
+              {{ 'my_family.pending_invitation_lbl' | translate }}
+            </span>
+            <p class="card-content mb-0 pt-0 my-family-box-member-name">
+              {{ member.first_name ? member.first_name : ' ' }} {{ member.last_name ? member.last_name : ' ' }}
+            </p>
+            <p class="card-content mb-0 pt-0 my-family-box-member-email">
+              {{ member.email ? member.email : 'legal dependent' }}
+            </p>
+          </div>
+          <div *ngIf="member.is_active; else notActive">
+            <app-family-edit
+              [relationId]="member.member_relation_id"
+              [isActive]="!member.is_active"
+              [index]="i"
+              (action)="getEditResult($event)"
+            ></app-family-edit>
+          </div>
+
+          <ng-template #notActive>
+            <app-edit-invitation
+              [relationId]="member.member_relation_id"
+              [isActive]="!member.is_active"
+              [index]="i"
+              (action)="getEditResult($event)"
+            ></app-edit-invitation>
+          </ng-template>
+          <!-- <button type="button" (click)="goToEdit(member.member_relation_id, false)"
+          class=" btn-success-outline">View</button> -->
+        </div>
+      </div>
+    </div>
+    <!-- Guest Members -->
+
+    <div class="col-md-6 col-lg-4  text-center  my-auto" *ngFor="let member of guestUsers; let i = index">
+      <div class="card my-family-card">
+        <div class="card-header family-card-default-header">
+          <div class="row  justify-content-between ">
+            <div class="col" style="text-align: left;">
+              <label class=" my-family-box-title-left">{{ member.display_value }}</label>
+            </div>
+            <div class="col" style="text-align: right;">
+              <label class="my-family-box-title-right"
+                >{{ 'my_family.guest_subtitle_lbl' | translate }} {{ familyUsers.length + i + 2 }}</label
+              >
+            </div>
+          </div>
+        </div>
+        <div class="card-body card-default family-card-body text-center">
+          <div style="height: 90px; vertical-align: middle;">
+            <span class="pending-invitation" *ngIf="!member.is_active">
+              {{ 'my_family.pending_invitation_lbl' | translate }}
+            </span>
+            <p class="card-content mb-0 pt-0 my-family-box-member-name">
+              {{ member.first_name ? member.first_name : ' ' }} {{ member.last_name ? member.last_name : ' ' }}
+            </p>
+            <p class="card-content mb-0 pt-0 my-family-box-member-email">
+              {{ member.email ? member.email : ' ' }}
+            </p>
+          </div>
+          <button type="button" (click)="removeMember(i, true)" class="btn-guest">
+            {{ 'my_family.delete_btn' | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- Add  Members -->
+
+    <div class="col-md-6 col-lg-4  text-center  my-auto">
+      <div class="card my-family-card" style=" box-shadow: none !important;">
+        <div class="card-header family-card-unavailable-header">
+          <div class="row  justify-content-between ">
+            <div class="col" style="text-align: left;">
+              <label class=" my-family-box-title-left">Add</label>
+            </div>
+            <div class="col" style="text-align: right;">
+              <label class="my-family-box-title-right"></label>
+            </div>
+          </div>
+        </div>
+        <div class="card-body card-unavailable family-card-body  text-center">
+          <div style="height: 90px; vertical-align: middle;">
+            <div class="col-md-12">
+              <div class="row justify-content-center">
+                <div class="my-family-button-add">
+                  <span class="my-family-box-add-button-lbl" (click)="goToAddNewDependent()">
+                    {{ 'my_family.add_dependent_btn' | translate }}
+                  </span>
+                </div>
+              </div>
+              <div class="row justify-content-center">
+                <app-add-member (action)="getAddResult($event)"></app-add-member>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- add familymember
+
+<form [formGroup]="addMemberForm" (ngSubmit)="addMember()">
+
+  <div class="form-group row">
+    <div class="col-md-4 mb-3">
+      <label for="confirm">Add Member (enter email):</label>
+      <input type="email" placeholder="Email" formControlName="email" class="form-control">
+      <p class="mt-1 text-danger" *ngIf="(email.dirty || email.touched) && email.invalid && !!email.errors.required">
+        Email is required.
+      </p>
+      <p class="mt-1 text-danger" *ngIf="(email.dirty || email.touched) && email.invalid && !!email.errors.email">
+        Email must be a valid email address.
+      </p>
+    </div>
+    <div class="col-md-4 mb-3 align-self-center">
+      <label for="confirm">Relationship to Primary Member</label>
+      <select class="browser-default custom-select" formControlName="member_relation_type_id">
+        <option selected=true value=0>
+          select an option</option>
+        <option *ngFor="let item of relationTypes;" value={{item.lookup_member_relation_type_id}}>
+          {{item.display_value}}</option>
+      </select>
+    </div>
+    <div class="col d-flex align-self-center">
+      <button type="submit" class="btn btn-primary btn-block" [disabled]="!addMemberForm.valid">
+        Invite
+      </button>
+    </div>
+  </div>
+</form>
+
+ add GuestFamilymember
+
+
+<form [formGroup]="addGuestMemberForm" (ngSubmit)="addGuestMember()">
+
+  <div class="form-group row">
+    <div class="col-md-4 mb-3">
+      <label for="confirm">Invite Guest Member (enter email):</label>
+      <input type="email" placeholder="Email" formControlName="email" class="form-control">
+      <p class="mt-1 text-danger"
+        *ngIf="(memberEmail.dirty || memberEmail.touched) && memberEmail.invalid && !!memberEmail.errors.required">
+        Email is required.
+      </p>
+      <p class="mt-1 text-danger"
+        *ngIf="(memberEmail.dirty || memberEmail.touched) && memberEmail.invalid && !!memberEmail.errors.email">
+        Email must be a valid email address.
+      </p>
+    </div>
+    <div class="col-md-4 mb-3 align-self-center">
+      <label for="confirm">Relationship to Primary Member</label>
+      <select class="browser-default custom-select" formControlName="member_relation_type_id">
+        <option selected=true value=0>
+          select an option</option>
+        <option *ngFor="let item of guestRelationTypes;" value={{item.lookup_member_relation_type_id}}>
+          {{item.display_value}}</option>
+      </select>
+    </div>
+    <div class="col d-flex align-self-center">
+      <button type="submit" class="btn btn-primary btn-block" [disabled]="!addGuestMemberForm.valid">
+        Invite
+      </button>
+    </div>
+  </div>
+</form>
+
+-->
+<!--
+<h3 class="mb-3">My Care Phamily</h3>
+<label class="mb-3">(5 of 6 members used)</label>
+
+<div class="container" style="width: 100%">
+  <div class="row align-items-center">
+    <div class="col-md-2">
+      <span>Name</span>
+    </div>
+    <div class="col-md-3">
+      <span>Email</span>
+    </div>
+    <div class="col-md-2">
+      <span>Relationship</span>
+    </div>
+    <div class="col-md-1">
+      <span>Status</span>
+    </div>
+    <div class="col-md">
+      <span>Delete</span>
+    </div>
+    <div class="col-md">
+      <span>Edit</span>
+    </div>
+  </div>
+  <div class="row align-items-center" *ngFor="let member of familyUsers;  let i = index" [attr.data-index]="i">
+    <div class="col-md-2">
+      {{member? member.first_name : '-' }}
+    </div>
+    <div class="col-md-3">
+      {{member.email ? member.email : '-'}}
+    </div>
+    <div class="col-md-2">
+      {{member.display_value}}
+    </div>
+    <div class="col-md-1">
+      {{member.status_display}}
+    </div>
+    <div class="col-md">
+      <button type="button" class="btn" (click)="removeMember(i, false)"><i class="material-icons">
+          remove
+        </i>
+      </button>
+    </div>
+    <div class="col-md">
+      <button type="button" class="btn" [disabled]="!member.is_active"
+        (click)="goToEdit(member.member_relation_id, false)"><i class="material-icons">
+          arrow_forward_ios
+        </i>
+      </button>
+    </div>
+  </div>
+</div> -->
+
+<!-- Guest list -->
+<!--
+<h3 class="mb-3">Guest Members</h3>
+<div class="container" style="width: 100%">
+  <div class="row align-items-center">
+    <div class="col-md-4">
+      <span>Email</span>
+    </div>
+    <div class="col-md-3">
+      <span>Relationship</span>
+    </div>
+    <div class="col-md-2">
+      <span>Status</span>
+    </div>
+    <div class="col-md">
+      <span>Delete</span>
+    </div>
+    <div class="col-md">
+      <span>Edit</span>
+    </div>
+  </div>
+  <div class="row align-items-center" *ngFor="let member of guestUsers;  let i = index" [attr.data-index]="i">
+    <div class="col-md-4">
+      {{member.email}}
+    </div>
+    <div class="col-md-3">
+      {{member.display_value}}
+    </div>
+    <div class="col-md-2">
+      {{member.status_display}}
+    </div>
+    <div class="col-md">
+      <button type="button" class="btn" (click)="removeMember(i, true)"><i class="material-icons">
+          remove
+        </i>
+      </button>
+    </div>
+    <div class="col-md">
+      <button type="button" class="btn" [disabled]="!member.is_active"
+        (click)="goToEdit(member.member_relation_id, true)"><i class="material-icons">
+          arrow_forward_ios
+        </i>
+      </button>
+    </div>
+  </div>
+</div> -->

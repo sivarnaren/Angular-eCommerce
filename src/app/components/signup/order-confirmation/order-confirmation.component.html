@@ -1,0 +1,44 @@
+<div class="row">
+  <div class="col-lg-12 text-center">
+    <h1 class="text-center title mb-0">{{'order_confirmation.title' | translate}}</h1>
+    <h5
+      class="text-center subtitle mt-0                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            ">
+      {{'order_confirmation.subtitle' | translate}} #2452
+    </h5>
+  </div>
+</div>
+
+<div class="row" *ngIf="orderInfo">
+  <div class="col-lg-8 mt-2 mx-auto">
+    <hr />
+    <p class="mb-0">{{'order_confirmation.order_details' | translate}}</p>
+    <p>{{ orderInfo.planName }} @ {{ orderInfo.orderPrice | currency }}/mo</p>
+    <hr />
+    <p class="mb-5" *ngIf="orderInfo.paymentType === 'ach_payment_method'">{{'order_confirmation.pay_with' | translate}}
+      bank account {{'order_confirmation.ending' | translate}}
+      {{ orderInfo.bankAccountNumber }}</p>
+    <p class="mb-5" *ngIf="orderInfo.paymentType === 'cc_payment_method'">{{'order_confirmation.pay_with' | translate}}
+      cc {{'order_confirmation.ending' | translate}}
+      {{ orderInfo.lastFour }}</p>
+    <p class="mb-0">{{'order_confirmation.billing_address' | translate}}</p>
+    <p class="mb-0">{{ orderInfo.firstName + ' ' + orderInfo.lastName }}</p>
+    <p class="mb-0">{{ orderInfo.address1 }}</p>
+    <p class="mb-0">
+      {{ orderInfo.city + ', ' + orderInfo.abbreviation + ' ' + orderInfo.zipcode }}
+    </p>
+    <hr />
+    <p class="mb-0">
+      <strong>TOTAL</strong>
+      <strong class="float-right">{{ orderInfo.orderPrice | currency }}</strong>
+    </p>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-8 mt-2 mx-auto">
+    <!--<app-invoice-generator></app-invoice-generator>-->
+    <button class="btn btn-primary float-right" (click)="goToOnboarding()">
+      {{'order_confirmation.my_dashboard_btn' | translate}}
+    </button>
+  </div>
+</div>

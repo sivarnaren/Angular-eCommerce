@@ -1,0 +1,137 @@
+<!-- Search Form  -->
+<div class="row">
+  <div  class="col-lg-10 offset-lg-2 mt-5">
+    <form [formGroup]="productForm" (ngSubmit)="getContentPatientEducation()">
+      <div class="form-row align-items-center">
+        <div class="col-md-2">
+          <label >Product ID</label>
+          <input type="number" class="form-control mb-2" placeholder="Product ID" formControlName="idProduct">
+        </div>
+        <div class="col-md-2">
+          <label>Language</label>
+          <select class="form-control" formControlName="language">
+            <option [ngValue]="lan.value" *ngFor="let lan of languages">{{lan.name}}</option>
+          </select>
+        </div>
+        <div class="col-md-2 align-self-end">
+          <button type="submit" class="btn btn-primary mb-2">Submit</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="row mt-3" *ngIf="error">
+  <!-- Error finding the product -->
+  <div class="col-md-12">
+    <p>{{error}}</p>
+  </div>
+</div>
+
+<!-- Patient Leaflet Information  -->
+<div class="container"  *ngIf="content">
+  
+  <!-- Description Information -->
+  <div class="row mb-4">
+    <div class="col-md-8">
+        <h2 class="mb-3">{{content.SheetName}}</h2>
+        <h4>{{content.DescriptionHeader}}</h4>
+        <p class="text-justify">{{content.Description}}</p>
+        <small> <strong>{{content.DescriptionFooter}}</strong> </small>
+      </div>
+      <div class="col-md-4">
+        <app-product-video></app-product-video>
+      </div>
+  </div>
+
+  <!-- Contraindications Information -->
+  <div class="row mb-4">
+    <div class="col-md-12">
+      <h4>{{content.ContraindicationsHeader}}</h4>
+      <div *ngFor="let item of content.Contraindications">
+        <p>{{item.name}}</p>
+        <ul>
+          <li *ngFor="let option of item.items">{{option}}</li>
+        </ul>
+      </div>
+      <small> <strong>{{content.ContraindicationsFooter}}</strong> </small>
+    </div>
+  </div>
+
+  <!-- Administration Information -->
+  <div class="row mb-4">
+    <div class="col-md-12">
+      <h4>{{content.AdministrationHeader}}</h4>
+      <p class="text-justify">{{content.Administration}}</p>
+      <small> <strong>{{content.AdministrationFooter}}</strong> </small>
+    </div>
+  </div>
+
+  <!-- Missed Dose Information -->
+  <div class="row mb-4">
+    <div class="col-md-12">
+      <h4>{{content.MissedDoseHeader}}</h4>
+      <p class="text-justify">{{content.MissedDose}}</p>
+      <small> <strong>{{content.MissedDoseFooter}}</strong> </small>
+    </div>
+  </div>
+
+  <!-- Interactions Information -->
+  <div class="row mb-4">
+    <div class="col-md-12">
+      <h4>{{content.InteractionsHeader}}</h4>
+      <div *ngFor="let item of content.Interactions">
+        <p>{{item.name}}</p>
+        <ul>
+          <li *ngFor="let option of item.items">{{option}}</li>
+        </ul>
+      </div>
+      <small> <strong>{{content.InteractionsFooter}}</strong> </small>
+    </div>
+  </div>
+
+  <!-- Monitorin Information -->
+  <div class="row mb-4">
+    <div class="col-md-12">
+      <h4>{{content.MonitoringHeader}}</h4>
+      <p class="text-justify">{{content.Monitoring}}</p>
+      <small> <strong>{{content.MonitoringFooter}}</strong> </small>
+    </div>
+  </div>
+
+  <!-- Interactions Information -->
+  <div class="row mb-4">
+    <div class="col-md-12">
+      <h4>{{content.SideEffectsHeader}}</h4>
+      <div *ngFor="let item of content.SideEffects">
+        <p>{{item.name}}</p>
+        <ul>
+          <li *ngFor="let option of item.items">{{option}}</li>
+        </ul>
+      </div>
+      <small> <strong>{{content.SideEffectsFooter}}</strong> </small>
+    </div>
+  </div>
+
+  <!-- Interactions Information -->
+  <div class="row mb-4">
+    <div class="col-md-12">
+      <h4>{{content.StorageHeader}}</h4>
+      <div *ngFor="let item of content.Storage">
+        <p>{{item.name}}</p>
+        <ul>
+          <li *ngFor="let option of item.items">{{option}}</li>
+        </ul>
+      </div>
+      <small> <strong>{{content.StorageFooter}}</strong> </small>
+    </div>
+  </div>
+
+  <!-- Last Updated Information -->
+  <div class="row mb-4">
+    <div class="col-md-12">
+      <p class="float-right">Last Updated: {{content.LastUpdated}}</p>
+    </div>
+  </div>
+
+</div>

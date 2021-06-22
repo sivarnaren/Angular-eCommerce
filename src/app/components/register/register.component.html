@@ -1,0 +1,158 @@
+<div>
+  <!-- Header Component -->
+  <div class="row mb-5 mt-5 text-center">
+    <div class="col-md-12">
+      <p class="title mb-0 mt-1">{{'register.title' | translate}}</p>
+      <p class="subtitle">{{'register.subtitle' | translate}}</p>
+      <p class="already-have-account">{{'register.account_already' | translate}} <a
+          [routerLink]="['/login']">{{'register.signin' | translate}}</a> </p>
+    </div>
+  </div>
+
+  <!-- Body Component (Form) -->
+  <form [formGroup]="signupForm" (ngSubmit)="doRegister()">
+
+    <div class="row justify-content-md-center">
+      <div class="col-md-2">
+        <div class="form-group">
+          <input type="text" [placeholder]="'register_placeholders.placeholder_first_name' | translate"
+            formControlName="firstName" class="form-control input-bg">
+          <p class="mt-1 text-danger"
+            *ngIf="(firstName.dirty || firstName.touched) && firstName.invalid && firstName.errors.required">
+            {{'register_errors.first_name_required' | translate}}
+          </p>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="form-group">
+          <input type="text" [placeholder]="'register_placeholders.placeholder_last_name' | translate"
+            formControlName="lastName" class="form-control input-bg">
+          <p class="mt-1 text-danger"
+            *ngIf="(lastName.dirty || lastName.touched) && lastName.invalid && lastName.errors.required">
+            {{'register_errors.last_name_required' | translate}}
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="row justify-content-md-center">
+      <div class="col-md-4">
+        <div class="form-group">
+          <input type="text" [placeholder]="'register_placeholders.placeholder_email' | translate"
+            formControlName="email" class="form-control input-bg">
+          <p class="mt-1 text-danger" *ngIf="(email.dirty || email.touched) && email.invalid && email.errors.required">
+            {{'register_errors.email_required' | translate}}
+          </p>
+          <p class="mt-1 text-danger" *ngIf="(email.dirty || email.touched) && email.invalid && email.errors.email">
+            {{'register_errors.email_valid' | translate}}
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="row justify-content-md-center">
+      <div class="col-md-4">
+        <div class="form-group">
+          <input type="text" [placeholder]="'register_placeholders.placeholder_mobile_phone' | translate"
+            formControlName="phoneNumber" class="form-control input-bg" mask='(000) 000-0000'>
+          <p class="mt-1 text-danger"
+            *ngIf="(phoneNumber.dirty || phoneNumber.touched) && phoneNumber.invalid && phoneNumber.errors.required">
+            {{'register_errors.mobile_number_required' | translate}}
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-0 justify-content-md-center">
+      <div class="col-md-4">
+        <div class="form-group">
+          <input type="password" [placeholder]="'register_placeholders.placeholder_password' | translate"
+            formControlName="pwd" class="form-control input-bg">
+
+          <p class="">{{'register.minimun_password_requirements' | translate}}</p>
+          <p [ngClass]="pwd.hasError('required') || pwd.hasError('minlength') ? 'text-danger' : 'text-success'">
+            <i class="material-icons validation-icons">
+              {{ pwd.hasError('required') || pwd.hasError('minlength') ? 'clear' : 'done' }}
+            </i> {{'register_errors.password_min_length' | translate}}
+          </p>
+          <p [ngClass]="pwd.hasError('required') || pwd.hasError('hasNumber') ? 'text-danger' : 'text-success'">
+            <i class="material-icons validation-icons">
+              {{ pwd.hasError('required') || pwd.hasError('hasNumber') ? 'clear' : 'done' }}
+            </i> {{'register_errors.password_number' | translate}}
+          </p>
+          <p [ngClass]="pwd.hasError('required') || pwd.hasError('hasCapitalCase') ? 'text-danger' : 'text-success'">
+            <i class="material-icons validation-icons">
+              {{ pwd.hasError('required') || pwd.hasError('hasCapitalCase') ? 'clear' : 'done' }}
+            </i> {{'register_errors.password_capital_letter' | translate}}
+          </p>
+          <p [ngClass]="pwd.hasError('required') || pwd.hasError('hasSmallCase') ? 'text-danger' : 'text-success'">
+            <i class="material-icons validation-icons">
+              {{ pwd.hasError('required') || pwd.hasError('hasSmallCase') ? 'clear' : 'done' }}
+            </i> {{'register_errors.password_small_letter' | translate}}
+          </p>
+          <p
+            [ngClass]="pwd.hasError('required') || pwd.hasError('hasSpecialCharacters') ? 'text-danger' : 'text-success'">
+            <i class="material-icons validation-icons">
+              {{ pwd.hasError('required') || pwd.hasError('hasSpecialCharacters') ? 'clear' : 'done' }}
+            </i> {{'register_errors.password_special_character' | translate}}
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="row justify-content-md-center">
+      <div class="col-md-4">
+        <div class="form-group" *ngIf="(pwd.dirty || pwd.touched)">
+          <input type="password" [placeholder]="'register_placeholders.placeholder_confirm_password' | translate"
+            formControlName="confirm" class="form-control input-bg">
+          <p class="mt-1 text-danger"
+            *ngIf="(confirm.dirty || confirm.touched) && confirm.invalid && confirm.errors?.required">
+            {{'register_errors.confirm_password_required' | translate}}
+          </p>
+          <p class="mt-1 text-danger" *ngIf="signupForm.errors?.passwordsDoNotMatch">
+            {{'register_errors.password_no_match' | translate}}
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="row justify-content-md-center">
+      <div class="col-md-4">
+        <div class="form-group">
+          <mat-checkbox formControlName="receiveInvitationCode"> {{'register.invitation_code' | translate}}
+          </mat-checkbox>
+        </div>
+      </div>
+    </div>
+
+    <div class="row justify-content-md-center">
+      <div class="col-md-4">
+        <div class="form-group" *ngIf="receiveInvitationCode.value">
+          <input type="text" class="form-control input-bg"
+            [placeholder]="'register_placeholders.placeholder_invitation_code' | translate"
+            formControlName="invitationCode" appOnlyNumbers="true">
+        </div>
+      </div>
+    </div>
+
+    <div class="row justify-content-md-center">
+      <div class="col-md-4">
+        <p class="h5 text-center">
+          <small> {{'register.terms_of_use_description' | translate}} <a
+              href="">{{'register.terms_of_service' | translate}}</a>, <a href="">
+              {{'register.privacy_policy' | translate}}
+            </a> , <a href="">{{'register.hipaa' | translate}}</a> </small> </p>
+      </div>
+    </div>
+
+
+
+    <div class="row justify-content-md-center">
+      <div class="col-md-4 text-center">
+        <button class="btn btn-primary">Create My Account</button>
+      </div>
+    </div>
+
+  </form>
+
+</div>

@@ -1,0 +1,143 @@
+<div class="container">
+  <div class="row justify-content-around  h-100 mt-5">
+    <div class="col-lg-3 col-md-12 h-auto d-inline-block   my-auto hub-container">
+      <div (click)="goToDashboard()">
+        <label class="my-hub"><i class="material-icons"> arrow_back </i>{{ 'my_family.hub_lbl' | translate }}</label>
+      </div>
+    </div>
+    <div class="col-lg-6 col-md-12 text-center  my-auto">
+      <div class="mb-0">
+        <label class="my-family-title">{{ 'my_security.page_title' | translate }}</label>
+      </div>
+    </div>
+    <div class="col-lg-3 col-md-12"></div>
+  </div>
+  <div class="row mt-5">
+    <div class="col-md-3 mt-5">
+      <app-account-side-menu [componentName]="'my-security'"></app-account-side-menu>
+    </div>
+
+    <div class="col-md-6">
+      <h3 class="mb-3">{{ 'my_security.title1' | translate }}</h3>
+
+      <form [formGroup]="passwordForm" (ngSubmit)="sendPasswordForm()">
+        <div class="form-group">
+          <label for="Password">{{ 'my_security.current_password_lbl' | translate }}</label>
+          <input
+            type="password"
+            placeholder="{{ 'my_security.current_password_input' | translate }}"
+            id="currentPass"
+            formControlName="currentPass"
+            class="form-control"
+          />
+          <p class="mt-1 text-danger" *ngIf="(currentPass.dirty || currentPass.touched) && !!currentPass.errors?.required">
+            {{ 'my_security.current_password_error' | translate }}
+          </p>
+        </div>
+        <div class="form-group">
+          <label for="pwd">{{ 'my_security.title1' | translate }}Password</label>
+          <input
+            type="password"
+            placeholder="{{ 'my_security.new_password_input' | translate }}"
+            formControlName="pwd"
+            class="form-control"
+          />
+
+          <p class="">{{ 'register.minimun_password_requirements' | translate }}</p>
+          <p [ngClass]="pwd.hasError('required') || pwd.hasError('minlength') ? 'text-danger' : 'text-success'">
+            <i class="material-icons validation-icons">
+              {{ pwd.hasError('required') || pwd.hasError('minlength') ? 'clear' : 'done' }}
+            </i>
+            {{ 'register_errors.password_min_length' | translate }}
+          </p>
+          <p [ngClass]="pwd.hasError('required') || pwd.hasError('hasNumber') ? 'text-danger' : 'text-success'">
+            <i class="material-icons validation-icons">
+              {{ pwd.hasError('required') || pwd.hasError('hasNumber') ? 'clear' : 'done' }}
+            </i>
+            {{ 'register_errors.password_number' | translate }}
+          </p>
+          <p [ngClass]="pwd.hasError('required') || pwd.hasError('hasCapitalCase') ? 'text-danger' : 'text-success'">
+            <i class="material-icons validation-icons">
+              {{ pwd.hasError('required') || pwd.hasError('hasCapitalCase') ? 'clear' : 'done' }}
+            </i>
+            {{ 'register_errors.password_capital_letter' | translate }}
+          </p>
+          <p [ngClass]="pwd.hasError('required') || pwd.hasError('hasSmallCase') ? 'text-danger' : 'text-success'">
+            <i class="material-icons validation-icons">
+              {{ pwd.hasError('required') || pwd.hasError('hasSmallCase') ? 'clear' : 'done' }}
+            </i>
+            {{ 'register_errors.password_small_letter' | translate }}
+          </p>
+          <p [ngClass]="pwd.hasError('required') || pwd.hasError('hasSpecialCharacters') ? 'text-danger' : 'text-success'">
+            <i class="material-icons validation-icons">
+              {{ pwd.hasError('required') || pwd.hasError('hasSpecialCharacters') ? 'clear' : 'done' }}
+            </i>
+            {{ 'register_errors.password_special_character' | translate }}
+          </p>
+        </div>
+
+        <div class="form-group">
+          <label for="confirm"> {{ 'my_security.re_type_passsword_lbl' | translate }}</label>
+          <input
+            type="password"
+            placeholder="{{ 'my_security.re_type_passsword_input' | translate }}"
+            formControlName="confirm"
+            class="form-control"
+          />
+          <p class="mt-1 text-danger" *ngIf="(confirm.dirty || confirm.touched) && confirm.invalid && !!confirm.errors?.required">
+            {{ 'register_errors.confirm_password_required' | translate }}
+          </p>
+
+          <p class="mt-1 text-danger" *ngIf="passwordForm.errors?.passwordsDoNotMatch">
+            {{ 'register_errors.password_no_match' | translate }}
+          </p>
+        </div>
+
+        <input type="hidden" formControlName="recaptcha" />
+
+        <div class="col d-flex justify-content-center">
+          <button type="submit" class="btn btn-primary btn-block" [disabled]="!passwordForm.valid">
+            {{ 'my_security.reset_btn' | translate }}
+          </button>
+        </div>
+      </form>
+
+      <h3 class="mb-3" style="margin-top: 70px">{{ 'my_security.title2' | translate }}</h3>
+
+      <form [formGroup]="textPinForm" (ngSubmit)="sendTextPinForm()">
+        <div class="form-group">
+          <label for="textpin">{{ 'my_security.pin_lbl' | translate }}</label>
+          <input
+            type="number"
+            placeholder="{{ 'my_security.pin_input' | translate }}"
+            id="textpin"
+            formControlName="pin"
+            required
+            class="form-control"
+            min="0"
+          />
+        </div>
+        <div *ngIf="pin.invalid && (pin.dirty || pin.touched)" class="">
+          <p class="mt-1 text-danger" *ngIf="(pin?.errors)['required']">
+            {{ 'my_security.pin_error1' | translate }}
+          </p>
+          <p class="mt-1 text-danger" *ngIf="(pin?.errors)['range']">
+            {{ 'my_security.pin_error2' | translate }}
+          </p>
+          <p class="mt-1 text-danger" *ngIf="(pin?.errors)['symbols']">
+            {{ 'my_security.pin_error3' | translate }}
+          </p>
+        </div>
+        <p class="text-center" style="font-size: 12px; padding: 10px 0;">
+          {{ 'my_security.pin_lbl2' | translate }}
+        </p>
+
+        <div class="col d-flex justify-content-center">
+          <button type="submit" class="btn btn-primary btn-block" [disabled]="!textPinForm.valid">
+            {{ 'my_security.change_pin_btn' | translate }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

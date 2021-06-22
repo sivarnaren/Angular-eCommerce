@@ -1,0 +1,326 @@
+<ng-template #content let-modal>
+  <div class="modal-body text-center">
+    <input type="text" style="display:none" />
+    <h4 class="txt-danger">Are you sure you want to remove this payment method?</h4>
+    <div class="row justify-content-center align-items-center">
+      <button type="button" class="btn btn-danger btn-block mb-2" (click)="deletePaymentMethod()">
+        Confirm
+      </button>
+      <button type="button" class="btn btn-default-outline" (click)="modal.close('Action Canceled')">
+        Cancel
+      </button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #addressContent let-modal>
+  <div class="modal-body text-center">
+    <input type="text" style="display:none" />
+    <h4 class="txt-danger">{{'address_validation_modal.title' | translate}}</h4>
+    <p>{{'address_validation_modal.subtitle' | translate}}</p>
+    <div class="row justify-content-center align-items-center">
+      <button type="button" class="btn btn-default-outline btn-block mb-2" (click)="createPaymentMethod()">
+        {{'address_validation_modal.confirm_address_btn' | translate}}
+      </button>
+      <button type="button" class="btn btn-success-outline btn-block mb-2" (click)="closeAddressModal()">
+        {{'address_validation_modal.edit_address_btn' | translate}}
+      </button>
+    </div>
+  </div>
+</ng-template>
+
+<div class="container">
+
+  <!-- Header component -->
+  <div class="row mt-5">
+    <div class="col-md-12">
+      <div class="float-left"><a class="btn btn-my-hub" [routerLink]="['../']">
+          <i class="material-icons"> arrow_back </i> My Hub
+        </a></div>
+      <div class="text-center d-none d-lg-block">
+        <p class="title">{{'payment_methods.title' | translate}}</p>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="row mt-5">
+
+    <div class="col-md-3">
+      <app-account-side-menu [componentName]="'my-payments'"></app-account-side-menu>
+    </div>
+
+    <div class="col-md-9">
+      <!-- Body Component (member payment methods) -->
+      <div class="row">
+        <div class="col-md-4" *ngFor="let paymentMethod of paymentMethods">
+          <div class="card" *ngIf="paymentMethod.is_default">
+            <div class="card-header card-success-header">
+              <small class="card-title ml-3">
+                {{'payment_methods.default_payment' | translate}}
+              </small>
+            </div>
+            <div class="card-body card-success text-center" *ngIf="paymentMethod.payment_type === 'bankAccount'">
+              <p class="card-content mb-2 pb-0">{{'payment_methods.account_number' | translate}}
+                {{paymentMethod.bank_account_number}}</p>
+              <!--<p class="card-content mb-0 pt-0">Routing Number {{paymentMethod.routing_number}}</p>-->
+              <button class="btn btn-success-outline"
+                (click)="open(content, paymentMethod.payment_profile_payment_provider_id)">{{'payment_methods.remove_btn' | translate}}</button>
+              <!-- (click)="deletePaymentMethod(paymentMethod.payment_profile_payment_provider_id)" -->
+            </div>
+            <div class="card-body card-success text-center" *ngIf="paymentMethod.payment_type === 'creditCard'">
+              <p class="card-content mb-0 pb-0">{{'payment_methods.ending' | translate}}
+                {{paymentMethod.lastfour}}</p>
+              <p class="card-content mb-0 pt-0">{{'payment_methods.expires' | translate}} {{paymentMethod.expiration}}
+              </p>
+              <p class="card-content mb-0 pt-0 payment-not-usable" *ngIf="!paymentMethod.valid_card">
+                {{'payment_methods.not_usable' | translate}}</p>
+              <button class="btn btn-success-outline"
+                (click)="open(content, paymentMethod.payment_profile_payment_provider_id)">{{'payment_methods.remove_btn' | translate}}</button>
+            </div>
+          </div>
+          <div class="card" *ngIf="!paymentMethod.is_default">
+            <div class="card-header card-default-header" *ngIf="paymentMethod.valid_card">
+              <small class="card-title ml-3">
+                <mat-checkbox (change)="setDefaultPaymentMethod(paymentMethod.payment_profile_payment_provider_id)">
+                </mat-checkbox> {{'payment_methods.make_default' | translate}}
+              </small>
+            </div>
+            <div class="card-header card-default-header" *ngIf="!paymentMethod.valid_card">
+              <small class="card-title ml-3">
+                {{'payment_methods.not_usable' | translate}}
+              </small>
+            </div>
+            <div class="card-body card-default text-center" *ngIf="paymentMethod.payment_type === 'bankAccount'">
+              <p class="card-content mb-0">{{'payment_methods.account_number' | translate}}
+                {{paymentMethod.bank_account_number}}</p>
+              <!--<p class="card-content mb-0 pt-0">Routing Number {{paymentMethod.routing_number}}</p>-->
+              <button class="btn btn-default-outline"
+                (click)="open(content, paymentMethod.payment_profile_payment_provider_id)">{{'payment_methods.remove_btn' | translate}}</button>
+              <!-- (click)="deletePaymentMethod(paymentMethod.payment_profile_payment_provider_id)" -->
+            </div>
+            <div class="card-body card-default text-center" *ngIf="paymentMethod.payment_type === 'creditCard'">
+              <p class="card-content mb-0 pb-0">{{'payment_methods.ending' | translate}}
+                {{paymentMethod.lastfour}}</p>
+              <p class="card-content mb-0 pt-0">{{'payment_methods.expires' | translate}} {{paymentMethod.expiration}}
+              </p>
+              <p class="card-content mb-0 pt-0" *ngIf="!paymentMethod.valid_card">
+                {{'payment_methods.not_usable' | translate}}</p>
+              <button class="btn btn-default-outline"
+                (click)="open(content, paymentMethod.payment_profile_payment_provider_id)">{{'payment_methods.remove_btn' | translate}}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <form [formGroup]="paymentForm" (ngSubmit)="validateAddress()">
+
+            <div class="row">
+              <div class="col-md-12">
+                <h4>{{'payment_methods.add_new' | translate}}</h4>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6">
+
+                <!-- Toggle Payment Method Type -->
+                <div class="form-group" *ngIf="allowACH">
+                  <div class="switch">
+                    <label class="toggle-text">
+                      {{'billing_information.toggle_cc' | translate}}
+                      <input type="checkbox" formControlName="paymentMethod">
+                      <span class="lever toggle-text"></span> {{'billing_information.toggle_ach' | translate}}
+                    </label>
+                  </div>
+                </div>
+
+                <!-- Data for ACH Payment Method -->
+                <div class="form-group" *ngIf="paymentMethod.value">
+                  <input type="text"
+                    [placeholder]="'billing_information_placeholder.routing_number_placeholder' | translate"
+                    class="form-control input-bg" formControlName="routingNumber" />
+                  <p class="mt-1 text-danger"
+                    *ngIf="(routingNumber.dirty || routingNumber.touched) && routingNumber.invalid && !!routingNumber.errors.required">
+                    {{'billing_information_errors.routing_number_required' | translate}}
+                  </p>
+                  <p class="mt-1 text-danger"
+                    *ngIf="(routingNumber.dirty || routingNumber.touched) && routingNumber.invalid && !!routingNumber.errors.minlength">
+                    {{'billing_information_errors.routing_number_minlength' | translate}}
+                  </p>
+                  <p class="mt-1 text-danger"
+                    *ngIf="(routingNumber.dirty || routingNumber.touched) && routingNumber.invalid && !!routingNumber.errors.maxlength">
+                    {{'billing_information_errors.routing_number_maxlength' | translate}}
+                  </p>
+                </div>
+
+                <div class="form-group" *ngIf="paymentMethod.value">
+                  <input type="text"
+                    [placeholder]="'billing_information_placeholder.bank_account_placeholder' | translate"
+                    class="form-control input-bg" formControlName="bankAccountNumber" />
+                  <p class="mt-1 text-danger"
+                    *ngIf="(bankAccountNumber.dirty || bankAccountNumber.touched) && bankAccountNumber.invalid && !!bankAccountNumber.errors.required">
+                    {{'billing_information_errors.bank_account_required' | translate}}
+                  </p>
+                </div>
+
+                <!-- Data for Credit Card Payment Method -->
+                <div class="form-group" *ngIf="!paymentMethod.value">
+                  <!--<label for="">Credit Card Number</label>-->
+                  <input type="text" [placeholder]="'billing_information_placeholder.cc_placeholder' | translate"
+                    class="form-control input-bg" formControlName="creditCardNumber" appOnlyNumbers="true"
+                    (ngModelChange)="onChange()" [mask]="currentMask" />
+                  <p class="mt-1 text-danger"
+                    *ngIf="(creditCardNumber.dirty || creditCardNumber.touched) && creditCardNumber.invalid && !!creditCardNumber.errors.required">
+                    {{'billing_information_errors.cc_required' | translate}}
+                  </p>
+                  <p class="mt-1 text-danger" *ngIf="
+                  (creditCardNumber.dirty || creditCardNumber.touched) && creditCardNumber.invalid && !!creditCardNumber.errors.invalidNumber
+                ">
+                    {{'billing_information_errors.cc_valid' | translate}}
+                  </p>
+                  <div class="row">
+                    <div class="col-md-12 text-right pr-0">
+                      <img src="../../../../assets/icons/icons8-visa-48.png" alt="visa"
+                        *ngIf="typeMask === 'visa' || typeMask === '' || typeMask === 'unknown'" />
+                      <img src="../../../../assets/icons/icons8-mastercard-48.png" alt="mastercard"
+                        *ngIf="typeMask === 'mastercard' || typeMask === '' || typeMask === 'unknown'" />
+                      <img src="../../../../assets/icons/icons8-discover-48.png" alt="discover"
+                        *ngIf="typeMask === 'discover' || typeMask === '' || typeMask === 'unknown'" />
+                      <img src="../../../../assets/icons/icons8-american-express-48.png" alt="amex"
+                        *ngIf="typeMask === 'amex' || typeMask === '' || typeMask === 'unknown'" />
+                      <img src="../../../../assets/icons/icons8-diners-club-48.png" alt="diners"
+                        *ngIf="typeMask === 'diners' || typeMask === '' || typeMask === 'unknown'" />
+                    </div>
+                  </div>
+
+                </div>
+
+                <p class="mb-0" *ngIf="!paymentMethod.value">
+                  <small> <strong>{{'billing_information.expiration' | translate}}</strong> </small>
+                </p>
+                <div class="form-row align-items-center" *ngIf="!paymentMethod.value">
+                  <div class="form-group col-md-4">
+                    <select class="form-control input-bg" formControlName="expirationMonth">
+                      <option disabled [ngValue]="null">MM</option>
+                      <option [ngValue]="month"
+                        *ngFor="let month of ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']">{{
+                          month
+                        }}</option>
+                    </select>
+                  </div>
+                  <div class="form-group col-md-4">
+                    <select class="form-control input-bg" formControlName="expirationYear">
+                      <option disabled [ngValue]="null">YYYY</option>
+                      <option [value]="year" *ngFor="let year of years">{{ year }}</option>
+                    </select>
+                  </div>
+                  <div class="form-group col-md-4">
+                    <input type="text" class="form-control input-bg"
+                      [placeholder]="'billing_information_placeholder.cvv_placeholder' | translate"
+                      appOnlyNumbers="true" formControlName="cvv" mask="0000" />
+                    <p class="mt-1 text-danger"
+                      *ngIf="(cvv.dirty || cvv.touched) && cvv.invalid && !!cvv.errors.required">
+                      {{'billing_information_errors.cvv_required' | translate}}
+                    </p>
+                    <p class="mt-1 text-danger"
+                      *ngIf="(cvv.dirty || cvv.touched) && cvv.invalid && !!cvv.errors.minlength && typeMask === 'amex'">
+                      {{'billing_information_errors.cvv_four_digits_min' | translate}}
+                    </p>
+                    <p class="mt-1 text-danger"
+                      *ngIf="(cvv.dirty || cvv.touched) && cvv.invalid && !!cvv.errors.maxlength && typeMask === 'amex'">
+                      {{'billing_information_errors.cvv_four_digits_max' | translate}}
+                    </p>
+                    <p class="mt-1 text-danger"
+                      *ngIf="(cvv.dirty || cvv.touched) && cvv.invalid && !!cvv.errors.minlength && typeMask !== 'amex'">
+                      {{'billing_information_errors.cvv_three_digits_min' | translate}}
+                    </p>
+                    <p class="mt-1 text-danger"
+                      *ngIf="(cvv.dirty || cvv.touched) && cvv.invalid && !!cvv.errors.maxlength && typeMask !== 'amex'">
+                      {{'billing_information_errors.cvv_three_digits_max' | translate}}
+                    </p>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <p>
+                    <small>{{'billing_information.agree' | translate}}</small>
+                  </p>
+                </div>
+
+                <div class="form-group" *ngIf="!paymentMethod.value">
+                  <input type="text" [placeholder]="'billing_information_placeholder.card_name_placeholder' | translate"
+                    class="form-control input-bg" formControlName="nameOnCard" />
+                  <p class="mt-1 text-danger"
+                    *ngIf="(nameOnCard.dirty || nameOnCard.touched) && nameOnCard.invalid && !!nameOnCard.errors.required">
+                    {{'billing_information_errors.card_name_required' | translate}}
+                  </p>
+                </div>
+
+
+              </div>
+              <div class="col-md-6">
+
+                <div class="form-group">
+                  <input type="text" [placeholder]="'billing_information_placeholder.address1_placeholder' | translate"
+                    class="form-control input-bg" #address formControlName="address1" />
+                  <p class="mt-1 text-danger"
+                    *ngIf="(address1.dirty || address1.touched) && address1.invalid && !!address1.errors.required">
+                    {{'billing_information_errors.address1_required' | translate}}
+                  </p>
+                </div>
+
+                <div class="form-group">
+                  <input type="text" [placeholder]="'billing_information_placeholder.address2_placeholder' | translate"
+                    class="form-control input-bg" formControlName="address2" />
+                  <p class="mt-1 text-danger"
+                    *ngIf="(address2.dirty || address2.touched) && address2.invalid && !!address2.errors.required">
+                    {{'billing_information_errors.address2_required' | translate}}
+                  </p>
+                </div>
+
+                <div class="form-row align-items-center">
+                  <div class="form-group col-md-4">
+                    <input type="text" class="form-control input-bg"
+                      [placeholder]="'billing_information_placeholder.city_placeholder' | translate"
+                      formControlName="city" />
+                    <p class="mt-1 text-danger"
+                      *ngIf="(city.dirty || city.touched) && city.invalid && !!city.errors.required">
+                      {{'billing_information_errors.city_required' | translate}}
+                    </p>
+                  </div>
+                  <div class="form-group col-md-4">
+                    <select class="form-control ml-2" formControlName="state">
+                      <option disabled [ngValue]="null">State</option>
+                      <option [value]="state.id" *ngFor="let state of states">{{ state.abbreviation }}</option>
+                    </select>
+                  </div>
+                  <div class="form-group col-md-4">
+                    <input type="text" class="form-control input-bg ml-2"
+                      [placeholder]="'billing_information_placeholder.zip_placeholder' | translate"
+                      formControlName="zipCode" appOnlyNumbers="true" />
+                    <p class="mt-1 text-danger"
+                      *ngIf="(zipCode.dirty || zipCode.touched) && zipCode.invalid && !!zipCode.errors.required">
+                      {{'billing_information_errors.zip_required' | translate}}
+                    </p>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <button class="btn btn-primary float-right" type="submit" [disabled]="!paymentForm.valid">
+                    {{'payment_methods.add_card_btn' | translate}}
+                  </button>
+                </div>
+
+              </div>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

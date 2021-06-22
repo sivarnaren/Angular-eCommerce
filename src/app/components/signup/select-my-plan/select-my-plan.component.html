@@ -1,0 +1,107 @@
+<div class="row">
+  <div class="col-md-12 text-center">
+    <h1 class="text-center title mb-0 mt-0">{{'select_my_plan.title' | translate}}</h1>
+    <h5 class="text-center subtitle mt-0 mb-0">{{'select_my_plan.subtitle' | translate}}</h5>
+  </div>
+</div>
+
+<!-- For Desktop Design -->
+<div class="d-none d-lg-block">
+  <div class="container-fluid content-row">
+    <div class="row">
+      <div class="col" *ngFor="let plan of plans; let i = index">
+        <div class="card plan-card text-center">
+          <div class="plan-card-body">
+            <h5 class="text-center plan-name">{{plan.plan_name}}</h5>
+            <p class="card-header-text"> {{'select_my_plan.coverage' | translate}} <span>{{plan.user_limit}}</span>
+              {{'select_my_plan.additional' | translate}} </p>
+            <hr>
+            <p class="card-body-text"> <span>{{plan.number_of_rx}} {{'select_my_plan.free' | translate}}</span>
+              {{'select_my_plan.certificates' | translate}} </p>
+            <hr>
+            <p class="card-body-text"> <span>{{'select_my_plan.demand' | translate}}</span>
+              {{'select_my_plan.access' | translate}} </p>
+            <hr>
+            <p class="card-body-text"> {{'select_my_plan.coverage_up' | translate }}
+              <span>{{'select_my_plan.additional_members' | translate}}</span>
+              {{'select_my_plan.includes' | translate}} </p>
+            <hr>
+            <p class="h4 text-center plan-price mt-auto mx-auto mb-0">
+              <span>$</span>{{plan.price_quarter | number: '1.0-0'}}</p>
+            <button type="button" class="btn btn-primary btn-round mx-auto mt-3" (click)="selectPlan(plan);">
+              {{'select_my_plan.join_btn' | translate}}
+            </button>
+            <p><small class="billing-payment mb-5">{{'select_my_plan.billed' | translate}}</small></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- For Mobile Design -->
+
+<div class="d-lg-none">
+  <ul class="slides mb-5">
+
+    <div *ngFor="let plan of plans; let i = index;">
+      <input type="radio" name="radio-btn" id="img-1" [checked]="plan.plan_id === selectedPlanMobile.plan_id" />
+      <li class="slide-container" *ngIf="plan.plan_id === selectedPlanMobile.plan_id">
+        <div class="slide">
+          <div class="plan-card text-center mb-5" [@cardAnimator]="animationState"
+            (@cardAnimator.done)="resetAnimationState()" (swipeLeft)="startAnimation('slideOutLeft', i)"
+            (swipeRight)="startAnimation('slideOutRight', i)">
+            <h5 class="text-center plan-name">{{plan.plan_name}}</h5>
+            <p class="card-header-text"> {{'select_my_plan.coverage' | translate}} <span>{{plan.user_limit}}</span>
+              {{'select_my_plan.additional' | translate}} </p>
+            <hr>
+            <p class="card-body-text"> <span>{{plan.number_of_rx}} {{'select_my_plan.free' | translate}}</span>
+              {{'select_my_plan.certificates' | translate}} </p>
+            <hr>
+            <p class="card-body-text"> <span>{{'select_my_plan.demand' | translate}}</span>
+              {{'select_my_plan.access' | translate}} </p>
+            <hr>
+            <p class="card-body-text"> {{'select_my_plan.coverage_up' | translate }}
+              <span>{{'select_my_plan.additional_members' | translate}}</span>
+              {{'select_my_plan.includes' | translate}} </p>
+            <hr>
+            <p class="h4 text-center plan-price mt-auto mx-auto mb-0">
+              <span>$</span>{{plan.price_quarter | number: '1.0-0'}}</p>
+            <button type="button" class="btn btn-primary btn-round mx-auto mt-3" (click)="selectPlan(plan);">
+              {{'select_my_plan.join_btn' | translate}}
+            </button>
+            <p><small class="billing-payment mb-5">{{'select_my_plan.billed' | translate}}</small></p>
+          </div>
+        </div>
+        <div class="nav">
+          <label class="prev" (click)="back()" *ngIf="!disableBack"><i
+              class="my-icon material-icons">keyboard_arrow_left</i></label>
+          <label class="next" (click)="next()" *ngIf="!disableNext"><i
+              class="my-icon material-icons">keyboard_arrow_right</i></label>
+        </div>
+
+      </li>
+    </div>
+  </ul>
+
+</div>
+
+<div class="row text-center">
+  <div class="col-md-12">
+    <p class="pay-as-you-go">{{'select_my_plan.not_ready' | translate}} <br>
+      <span>{{'select_my_plan.learn' | translate}}</span> </p>
+    <button class="btn btn-success-outline">{{'select_my_plan.pay_as_you_go_btn' | translate}}</button>
+  </div>
+</div>
+
+<!--
+<ul>
+  <li class="nav-dots">
+    <label for="img-1" class="nav-dot" id="img-dot-1"></label>
+    <label for="img-2" class="nav-dot" id="img-dot-2"></label>
+    <label for="img-3" class="nav-dot" id="img-dot-3"></label>
+    <label for="img-4" class="nav-dot" id="img-dot-4"></label>
+    <label for="img-5" class="nav-dot" id="img-dot-5"></label>
+    <label for="img-6" class="nav-dot" id="img-dot-6"></label>
+  </li>
+</ul>-->

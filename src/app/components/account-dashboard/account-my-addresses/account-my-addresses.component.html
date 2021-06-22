@@ -1,0 +1,232 @@
+<!-- Delete Address Modal -->
+<ng-template #deleteContent let-modal>
+  <div class="modal-header">
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row text-center">
+      <div class="col-md-12">
+        <h5 class="title title-modal title-delete-modal">{{'my_addresses.remove_text' | translate}}</h5>
+      </div>
+      <div class="col-md-12">
+        <button class="btn btn-danger btn-block mt-3" type="button" (click)="removeShippingAddress();">
+          {{'my_addresses.confirm_btn' | translate}}
+        </button>
+        <button class="btn back-btn mt-3" type="button" (click)="modal.dismiss('Cross click')">
+          {{'my_addresses.cancel_btn' | translate}}
+        </button>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<!-- Invalid Address Modal -->
+<ng-template #invalidAddressContent let-modal>
+  <div class="modal-body text-center">
+    <input type="text" style="display:none" />
+    <h4 class="txt-danger">We can't confirm this address.</h4>
+    <p>Please double-check the address you entered</p>
+    <div class="row justify-content-center align-items-center">
+      <button type="button" class="btn btn-default-outline btn-block mb-2" (click)="keepAddressAsEntered()">
+        Keep Address as Entered
+      </button>
+      <button type="button" class="btn btn-success-outline btn-block mb-2" (click)="closeInvalidAddressModal()">
+        Edit This Address
+      </button>
+    </div>
+  </div>
+</ng-template>
+
+<!-- Update Address Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="updateAddressForm" (ngSubmit)="validateAddress('update')" novalidate>
+          <div class="row text-center">
+            <div class="col-md-12">
+              <h5 class="title title-modal">{{'my_addresses.edit_address_title' | translate}}</h5>
+            </div>
+          </div>
+          <div class="row text-center">
+            <div class="col-md-12">
+              <div class="form-group">
+                <input type="text" class="form-control input-bg" placeholder="Shipping Address Line 1" #addressUpdate
+                  formControlName="address1Update">
+                <p class="mt-1 text-danger"
+                  *ngIf="(address1Update.dirty || address1Update.touched) && address1Update.invalid && !!address1Update.errors.required">
+                  {{'billing_information_errors.address1_required' | translate}}
+                </p>
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control input-bg"
+                  placeholder="Shipping Address Line 2 (Apt, Suite, etc.)" formControlName="address2Update">
+              </div>
+              <div class="form-row">
+                <div class="col">
+                  <input type="text" class="form-control input-bg" placeholder="City" formControlName="cityUpdate">
+                  <p class="mt-1 text-danger"
+                    *ngIf="(cityUpdate.dirty || cityUpdate.touched) && cityUpdate.invalid && !!cityUpdate.errors.required">
+                    {{'billing_information_errors.city_required' | translate}}
+                  </p>
+                </div>
+                <div class="col">
+                  <select class="form-control input-bg" formControlName="stateUpdate">
+
+                    <option disabled [ngValue]="null">State</option>
+                    <option [ngValue]="state.id" *ngFor="let state of states">{{ state.abbreviation }}</option>
+                  </select>
+                </div>
+                <div class="col">
+                  <input type="text" class="form-control input-bg" placeholder="Zip" formControlName="zipCodeUpdate">
+                  <p class="mt-1 text-danger"
+                    *ngIf="(zipCodeUpdate.dirty || zipCodeUpdate.touched) && zipCodeUpdate.invalid && !!zipCodeUpdate.errors.required">
+                    {{'billing_information_errors.zip_required' | translate}}
+                  </p>
+                </div>
+              </div>
+              <button class="btn btn-success btn-block mt-3" type="submit" [disabled]="!updateAddressForm.valid">
+                {{'my_addresses.save_btn' | translate}}
+              </button>
+              <button class="btn back-btn mt-3" type="button" data-dismiss="modal">
+                {{'my_addresses.cancel_btn' | translate}}
+              </button>
+              <p class="mt-3 pointer" (click)="openModalDeleteAddress(deleteContent);">
+                {{'my_addresses.remove_address_btn' | translate}}</p>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Content Component -->
+<div class="container">
+
+  <div class="row mt-5">
+    <div class="col-md-12">
+      <div class="float-left"><a class="btn btn-my-hub" [routerLink]="['../']">
+          <i class="material-icons"> arrow_back </i> My Hub
+        </a></div>
+      <div class="text-center d-none d-lg-block">
+        <p class="title">{{'my_addresses.title' | translate}}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-5">
+
+    <!-- Account Sidemenu -->
+    <div class="col-md-3">
+      <app-account-side-menu [componentName]="'my-addresses'"></app-account-side-menu>
+    </div>
+
+    <div class="col-md-9 text-center" *ngIf="shippingAddresses.length === 0">
+      <p>Loading shipping addresses...</p>
+    </div>
+
+    <div class="col-md-9" *ngIf="shippingAddresses.length > 0">
+      <div class="row">
+        <div class="col-md-4" *ngFor="let item of shippingAddresses; let i = index">
+          <div class="card" *ngIf="item.is_default">
+            <div class="card-header card-success-header">
+              <small class="card-title my-address-card-title">
+                {{'my_addresses.primary_shipping' | translate}}
+              </small>
+            </div>
+            <div class="card-body card-success text-center">
+              <p class="address-information-text">{{item.address1}} {{item.city}}, {{item.state}} {{item.zipcode}}</p>
+              <button class="btn btn-success-outline" (click)="openModal(item);" data-toggle="modal"
+                data-target="#exampleModal" id="linkid">{{'my_addresses.edit_btn' | translate}}</button>
+            </div>
+          </div>
+          <div class="card" *ngIf="!item.is_default">
+            <div class="card-header my-address-card-header card-default-header">
+              {{'my_addresses.shipping' | translate}} #{{i}}
+              <small class="card-title my-address-card-header ml-3">
+                <mat-checkbox (change)="setDefaultShippingAddress(item.member_address_id)">
+                </mat-checkbox> {{'my_addresses.make_primary' | translate}}
+              </small>
+            </div>
+            <div class="card-body card-default text-center">
+              <p class="address-information-text">{{item.address1}} {{item.city}}, {{item.state}} {{item.zipcode}}</p>
+              <button class="btn btn-default-outline" (click)="openModal(item);" data-toggle="modal"
+                data-target="#exampleModal" id="linkid">{{'my_addresses.edit_btn' | translate}}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="row mb-5">
+    <div class="col-md-9 offset-md-3">
+      <form [formGroup]="addressForm" (ngSubmit)="validateAddress('add')" novalidate>
+
+        <div class="row">
+          <div class="col-md-12">
+            <p class="add-new-address-text">{{'my_addresses.add_new_address' | translate}}</p>
+          </div>
+        </div>
+
+        <div class="row">
+
+          <div class="col-md-6">
+
+            <div class="form-group">
+              <input type="text" class="form-control input-bg" placeholder="Shipping Address Line 1"
+                formControlName="address1" #address>
+              <p class="mt-1 text-danger"
+                *ngIf="(address1.dirty || address1.touched) && address1.invalid && !!address1.errors.required">
+                {{'billing_information_errors.address1_required' | translate}}
+              </p>
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control input-bg" placeholder="Shipping Address Line 2 (Apt, Suite, etc.)"
+                formControlName="address2">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-row">
+              <div class="col">
+                <input type="text" class="form-control input-bg" placeholder="City" formControlName="city">
+                <p class="mt-1 text-danger"
+                  *ngIf="(city.dirty || city.touched) && city.invalid && !!city.errors.required">
+                  {{'billing_information_errors.city_required' | translate}}
+                </p>
+              </div>
+              <div class="col">
+                <select class="form-control input-bg" formControlName="state">
+                  <!--<option value=""></option>
+                  <option [value]="state.id" *ngFor="let state of states">{{ state.abbreviation }}</option>-->
+                  <option disabled [ngValue]="null">State</option>
+                  <option [ngValue]="state.id" *ngFor="let state of states">{{ state.abbreviation }}</option>
+                </select>
+              </div>
+              <div class="col">
+                <input type="text" class="form-control input-bg" placeholder="Zip" formControlName="zipCode">
+                <p class="mt-1 text-danger"
+                  *ngIf="(zipCode.dirty || zipCode.touched) && zipCode.invalid && !!zipCode.errors.required">
+                  {{'billing_information_errors.zip_required' | translate}}
+                </p>
+              </div>
+            </div>
+            <button class="btn btn-success float-right mt-3" type="submit"
+              [disabled]="!addressForm.valid">{{'my_addresses.add_shipping_address_btn' | translate}}</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+</div>

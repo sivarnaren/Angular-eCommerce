@@ -1,0 +1,44 @@
+<ul class="list-group d-none d-lg-block">
+  <li class="list-group-item pointer" [ngClass]="componentName === 'my-profile' ? 'active' : ''" [routerLink]="['../my-profile']">
+    {{ 'account_sidemenu.my_profile' | translate }}
+  </li>
+  <li class="list-group-item pointer" [ngClass]="componentName === 'my-addresses' ? 'active' : ''" [routerLink]="['../my-addresses']">
+    {{ 'account_sidemenu.my_addresses' | translate }}
+  </li>
+  <!--<li class="list-group-item">My Physician</li>
+  <li class="list-group-item">My Pharmacy</li>-->
+  <!-- security -->
+  <li class="list-group-item" [ngClass]="componentName === 'my-security' ? 'active' : ''" [routerLink]="['../security']">
+    {{ 'account_sidemenu.my_security' | translate }}
+  </li>
+  <!-- payments -->
+  <li class="list-group-item pointer" [ngClass]="componentName === 'my-payments' ? 'active' : ''" [routerLink]="['../payment-methods']">
+    {{ 'account_sidemenu.payment_method' | translate }}
+  </li>
+  <li class="list-group-item">{{ 'account_sidemenu.preferences' | translate }}</li>
+</ul>
+<div class="row d-lg-none">
+  <div class="col-md-12 p-0">
+    <div class="form-group">
+      <select class="form-control">
+        <option value="" [ngClass]="componentName === 'my-profile' ? 'active' : ''">
+          {{ 'account_sidemenu.my_profile' | translate }}</option
+        >
+        <option value="" [ngClass]="componentName === 'my-addresses' ? 'active' : ''">
+          {{ 'account_sidemenu.my_addresses' | translate }}</option
+        >
+        <!--<option value="">My Physician</option>
+        <option value="">My Pharmacy</option>-->
+        <!-- security -->
+        <option value="" [ngClass]="componentName === 'my-security' ? 'active' : ''" [routerLink]="['../security']"
+          >{{ 'account_sidemenu.my_security' | translate }}
+        </option>
+        <!-- payments -->
+        <option value="" [ngClass]="componentName === 'my-payments' ? 'active' : ''" [routerLink]="['../payment-methods']">
+          {{ 'account_sidemenu.payment_method' | translate }}</option
+        >
+        <option value="">{{ 'account_sidemenu.preferences' | translate }}</option>
+      </select>
+    </div>
+  </div>
+</div>

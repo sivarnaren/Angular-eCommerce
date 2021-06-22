@@ -1,0 +1,400 @@
+@import '../../../styles/variables.less';
+
+.title {
+    font-size: 54px;
+    font-weight: 200;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.33;
+    letter-spacing: -0.3px;
+    text-align: center;
+    color: @green;
+}
+
+.subtitle {
+    font-size: 24px;
+    font-weight: bold;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.58;
+    letter-spacing: -0.1px;
+    text-align: center;
+    color: @light-black;
+}
+
+.plan-card {
+    transition: transform .5s;
+    border-radius: 50px;
+    border: 2px solid @light-gray;
+
+    &::after {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      transition: opacity 2s cubic-bezier(.165, .84, .44, 1);
+      box-shadow: 0 8px 17px 0 rgba(0, 0, 0, .2), 0 6px 20px 0 rgba(0, 0, 0, .15);
+      content: '';
+      opacity: 0;
+      z-index: -1;
+
+    }
+
+    &:active, &:hover, &:checked {
+      //transform: scale3d(1.006, 1.006, 1);
+      transform: scale3d(1.1, 1.1, 1.1);
+      border-color: @orange;
+      z-index: 2;
+    }
+}
+
+.plan-card-body {
+    
+    padding: 1.25rem;
+    // min-width: 100%;
+    // min-height: 300px !important;
+
+  
+
+    h5 {
+        color: @green;
+    }
+
+    .plan-name {
+        font-size: 24px;
+        font-weight: 900;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.21;
+        letter-spacing: normal;
+        text-align: center;
+        color: @green;
+    }
+
+    .plan-description {
+        font-size: 18px;
+        font-weight: normal;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.33;
+        letter-spacing: normal;
+        text-align: center;
+        color: @light-black;
+    }
+
+    .plan-price {
+        font-size: 40px;
+        font-weight: normal;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.21;
+        letter-spacing: normal;
+        color: @black;
+
+        span {
+            font-size: 25px;
+            margin-top: 10px;
+        }
+    }
+
+    .billing-payment {
+        font-size: 14px;
+        font-weight: normal;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 2.07;
+        letter-spacing: -0.1px;
+        color: @light-black;
+    }
+
+}
+
+hr {
+    border-top: 1px solid @mid-gray;
+    width: 80%;
+}
+
+.card-header-text {
+    font-size: 16px;
+    color: @light-black;
+    font-weight: 500;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.25;
+    letter-spacing: normal;
+
+    span {
+        font-weight: bold;
+    }
+}
+
+.card-body-text {
+    font-size: 14px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.29;
+    letter-spacing: normal;
+    color: @light-black
+  }
+
+span {
+    font-weight: 700;
+}
+
+
+.pay-as-you-go {
+    font-size: 18px;
+    font-weight: 500;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.33;
+    letter-spacing: normal;
+    color: @light-black
+}
+
+
+/* Select plan mobile */
+
+
+.plan-card {
+    transition: transform .5s;
+    border-radius: 50px !important;
+    border: 2px solid @light-gray;
+    padding: 0.75rem;
+
+    h5 {
+        color: @green !important;
+    }
+
+    .plan-name {
+        font-size: 18px;
+        font-weight: 900;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.21;
+        letter-spacing: normal;
+        text-align: center;
+        color: @green !important;
+        word-break: break-all;
+        padding: 1.25rem;
+    }
+
+    .plan-description {
+        font-size: 18px;
+        font-weight: normal;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.33;
+        letter-spacing: normal;
+        text-align: center;
+        color: @light-black;
+    }
+
+    .plan-price {
+        font-size: 40px;
+        font-weight: normal;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.21;
+        letter-spacing: normal;
+        color: @black;
+
+        span {
+            font-size: 25px;
+            margin-top: 10px;
+        }
+    }
+
+    .billing-payment {
+        font-size: 14px;
+        font-weight: normal;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 2.07;
+        letter-spacing: -0.1px;
+        color: @light-black;
+    }
+
+}
+
+hr {
+    border-top: 1px solid @mid-gray;
+    width: 80%;
+}
+
+.card-header-text {
+    font-size: 16px;
+    color: @light-black;
+    font-weight: 500;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.25;
+    letter-spacing: normal;
+
+    span {
+        font-weight: bold;
+    }
+}
+
+.card-body-text {
+    font-size: 14px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.29;
+    letter-spacing: normal;
+    color: @light-black
+}
+
+span {
+font-weight: 700;
+}
+
+/*carousel*/
+.my-icon {
+    font-size: 50px !important;
+    color: #FFF;
+    background-color: #333 !important;
+    border-radius: 12px;
+    opacity: 0.5;
+  }
+
+  .slides {
+    padding: 0;
+    width: 100%;
+    height: 420px;
+    display: block;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .slides * {
+    user-select: none;
+    -ms-user-select: none;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+  }
+
+  .slides input {
+    display: none;
+  }
+
+  .slide-container {
+    display: block;
+  }
+
+  .slide {
+    top: 0;
+    opacity: 1;
+    width: 100%;
+    height: 420px;
+    /* check this again*/
+    display: block;
+    position: absolute;
+
+    transform: scale(0);
+
+    transition: all .7s ease-in-out;
+  }
+
+  .slide img {
+    width: 100%;
+    height: 100%;
+  }
+
+  .nav label {
+    /*width: 50px;*/
+    height: 100%;
+    /*display: none;*/
+    position: absolute;
+
+    opacity: 1;
+    z-index: 9;
+    cursor: pointer;
+
+    transition: opacity .2s;
+
+    /*color: #FFF;*/
+    font-size: 80px;
+    text-align: center;
+    line-height: 380px;
+    font-family: "Varela Round", sans-serif;
+    /*background-color: rgba(255, 255, 255, .3);*/
+    /*text-shadow: 0px 0px 15px rgb(119, 119, 119);*/
+  }
+
+  .slide:hover+.nav label {
+    opacity: 0.5;
+  }
+
+  .nav label:hover {
+    opacity: 1;
+  }
+
+  .nav .next {
+    right: -35px;
+    margin-top: 20%
+  }
+
+  .nav .prev {
+    left: -35px;
+    margin-top: 20%
+  }
+
+  input:checked+.slide-container .slide {
+    opacity: 1;
+
+    transform: scale(1);
+
+    transition: opacity 1s ease-in-out;
+  }
+
+  input:checked+.slide-container .nav label {
+    display: block;
+  }
+
+  .nav-dots {
+    width: 100%;
+    bottom: 9px;
+    height: 11px;
+    display: block;
+    position: absolute;
+    text-align: center;
+  }
+
+  .nav-dots .nav-dot {
+    top: -5px;
+    width: 11px;
+    height: 11px;
+    margin: 0 4px;
+    position: relative;
+    border-radius: 100%;
+    display: inline-block;
+    background-color: rgba(0, 0, 0, 0.6);
+  }
+
+  .nav-dots .nav-dot:hover {
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+
+  input#img-1:checked~.nav-dots label#img-dot-1,
+  input#img-2:checked~.nav-dots label#img-dot-2,
+  input#img-3:checked~.nav-dots label#img-dot-3,
+  input#img-4:checked~.nav-dots label#img-dot-4,
+  input#img-5:checked~.nav-dots label#img-dot-5,
+  input#img-6:checked~.nav-dots label#img-dot-6 {
+    background: rgba(0, 0, 0, 0.8);
+  }
+
+  @media (min-width: 320px) and (max-width: 480px) {
+  
+    .pay-as-you-go {
+      margin-top: 60%;
+    }
+    
+  }

@@ -1,0 +1,15 @@
+<div class="modal-body text-center">
+  <!-- @Jorge fix to modals -->
+  <input style="display: none" />
+  <p class="confirmation-wording">{{ confirmationWording }}</p>
+  <div class="row justify-content-center align-items-center">
+    <button type="button" class="btn btn-danger btn-block mb-2 confirmation-btn" (click)="confirmAction()">
+      Confirm
+    </button>
+  </div>
+  <div class="row justify-content-center align-items-center">
+    <button type="button" class="btn btn-default-outline" (click)="activeModal.close('Action Canceled')">
+      Cancel
+    </button>
+  </div>
+</div>

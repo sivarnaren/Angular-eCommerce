@@ -1,0 +1,43 @@
+<div class="">
+  <div class="container vh-100">
+    <div class="row">
+      <div class="col-lg-5 mt-2 mx-auto">
+        <div class="row">
+          <div class="col">
+            <form [formGroup]="loginForm" (ngSubmit)="doLogin()">
+              <div class="form-group">
+                <label for="email">{{ 'login.placeholder_email' | translate }}</label>
+                <input type="email" placeholder="{{ 'login.placeholder_email' | translate }}" formControlName="email"
+                  class="form-control" />
+              </div>
+              <div class="form-group">
+                <label for="email">{{ 'login.placeholder_password' | translate }}</label>
+                <input type="password" placeholder="{{ 'login.placeholder_password' | translate }}" class="form-control"
+                  formControlName="password" />
+              </div>
+
+              <div class="row">
+                <div class="col d-flex justify-content-center">
+                  <button type="submit" class="btn btn-primary" [disabled]="!loginForm.valid">
+                    {{ 'login.submit_button' | translate }}
+                  </button>
+                </div>
+              </div>
+              <input type="hidden" formControlName="recaptcha" />
+            </form>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col d-flex justify-content-center">
+            <a class="link" [routerLink]="['../reset']">{{ 'login.forgot_password_link' | translate }}</a>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col d-flex justify-content-center">
+            <a class="link" [routerLink]="['../register']">{{ 'login.not_a_member_yet_link' | translate }}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

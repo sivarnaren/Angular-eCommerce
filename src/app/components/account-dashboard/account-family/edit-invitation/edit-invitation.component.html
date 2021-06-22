@@ -1,0 +1,77 @@
+<ng-template #content let-modal>
+  <div class="modal-body text-center">
+    <!-- @Jorge fix to modals -->
+    <input style="display: none" />
+    <div class="">
+      <h3 class="mb-3">{{ 'my_family_edit_invitation.title_lbl' | translate }}</h3>
+    </div>
+
+    <form [formGroup]="addMemberForm" (ngSubmit)="editInvitation()">
+      <div class="form-group">
+        <label for="validationCustom01">{{ 'my_family_edit_invitation.first_name_input' | translate }}</label>
+        <input
+          type="text"
+          class="form-control"
+          id="validationCustom01"
+          formControlName="first_name"
+          placeholder="{{ 'my_family_edit_invitation.first_name_input' | translate }}"
+          required
+        />
+        <p class="mt-1 text-danger" *ngIf="(firstName.dirty || firstName.touched) && !!firstName.errors?.required">
+          {{ 'form_errors.first_name_required' | translate }}
+        </p>
+      </div>
+      <div class="form-group">
+        <label for="validationCustom01">{{ 'my_family_edit_invitation.last_name_input' | translate }}</label>
+        <input
+          type="text"
+          class="form-control"
+          id="validationCustom01"
+          formControlName="last_name"
+          placeholder="{{ 'my_family_edit_invitation.last_name_input' | translate }}"
+          required
+        />
+        <p class="mt-1 text-danger" *ngIf="(lastName.dirty || lastName.touched) && !!lastName.errors?.required">
+          {{ 'form_errors.last_name_required' | translate }}
+        </p>
+      </div>
+      <div class="form-group">
+        <input
+          type="email"
+          placeholder="{{ 'my_family_edit_invitation.email' | translate }}"
+          formControlName="email"
+          class="form-control"
+        />
+        <p class="mt-1 text-danger" *ngIf="(email.dirty || email.touched) && email.invalid && !!email.errors.required">
+          {{ 'form_errors.email_required' | translate }}
+        </p>
+        <p class="mt-1 text-danger" *ngIf="(email.dirty || email.touched) && email.invalid && !!email.errors.email">
+          {{ 'form_errors.email_valid' | translate }}
+        </p>
+      </div>
+      <div class="form-group">
+        <label for="confirm">{{ 'my_family_edit_invitation.relationship_lbl' | translate }}</label>
+        <select class="browser-default custom-select" formControlName="member_relation_type_id">
+          <option selected="true" value="0"> {{ 'my_family_edit_invitation.relationship_default_input' | translate }}</option>
+          <option *ngFor="let item of relationTypes" value="{{ item.lookup_member_relation_type_id }}"> {{ item.display_value }}</option>
+        </select>
+      </div>
+      <div class="row">
+        <div class="col d-flex justify-content-center">
+          <button type="button" class="btn btn-primary btn-block" (click)="modal.close('Action Canceled')">
+            {{ 'my_family_edit_invitation.cancel_btn' | translate }}
+          </button>
+        </div>
+        <div class="col d-flex justify-content-center">
+          <button type="submit" class="btn btn-primary btn-block" [disabled]="!addMemberForm.valid">
+            {{ 'my_family_edit_invitation.save_btn' | translate }}
+          </button>
+        </div>
+      </div>
+      <div class="mt-5">
+        <span (click)="removeInvitation()">{{ 'my_family_edit_invitation.remove_btn' | translate }}</span>
+      </div>
+    </form>
+  </div>
+</ng-template>
+<button type="button" (click)="open(content)" class="btn-members">View</button>

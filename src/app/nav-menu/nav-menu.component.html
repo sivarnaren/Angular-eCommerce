@@ -1,0 +1,127 @@
+<!-- Desktop navbar -->
+<ul id="desktop_language_dd" class="dropdown-content">
+  <li><a (click)="setLang('en')">English</a></li>
+  <li><a (click)="setLang('es')">Español</a></li>
+</ul>
+<nav>
+  <div class="nav-wrapper Path-208">
+    <a class="brand-logo ml-5" (click)="sendYouHome()"><img src="assets/images/popupcare-logo.png" style="width: 200px"/></a>
+    <a (click)="showSideNav()" data-target="mobile-demo" class="sidenav-trigger d-block"><i class="material-icons">menu</i></a>
+    <ul class="right hide-on-med-and-down">
+      <!-- <li>
+        <a class="dropdown-trigger" href="#!" data-target="desktop_language_dd"
+          ><i class="material-icons left">language</i>{{ 'menu.language' | translate
+          }}<i class="material-icons right">arrow_drop_down</i></a
+        >
+      </li> -->
+      <!--Anonymous user-->
+      <li *ngIf="!isUserAuthenticated">
+        <a [routerLink]="[lang, '']">{{ 'menu.how_it_works' | translate }}</a>
+      </li>
+      <li *ngIf="!isUserAuthenticated">
+        <a href="badges.html">{{ 'menu.plans' | translate }}</a>
+      </li>
+      <li *ngIf="!isUserAuthenticated">
+        <a href="collapsible.html">{{ 'menu.faq' | translate }}</a>
+      </li>
+      <li *ngIf="!isUserAuthenticated">
+        <a [routerLink]="[lang, 'register']" class="Rectangle-108">{{ 'menu.join_now' | translate }}</a>
+      </li>
+      <li *ngIf="!isUserAuthenticated">
+        <a [routerLink]="[lang, 'login']">{{ 'menu.signin' | translate }}</a>
+      </li>
+      
+      <!--Anonymous user-->
+
+      <!--Authenticated user-->
+      <li *ngIf="isUserAuthenticated && member_type_id === 1">
+        <a [routerLink]="[lang, '']">
+          <i class="material-icons left">card_membership</i>{{ 'menu_authenticated.digital_care' | translate }}</a
+        >
+      </li>
+      <li *ngIf="isUserAuthenticated && member_type_id === 1">
+        <a [routerLink]="[lang, '']"> <i class="material-icons left">card_membership</i>{{ 'menu_authenticated.orders' | translate }}</a>
+      </li>
+      <li *ngIf="isUserAuthenticated && member_type_id === 1">
+        <a [routerLink]="[lang, 'account']">
+          <i class="material-icons left">card_membership</i>{{ 'menu_authenticated.myhub' | translate }}</a
+        >
+      </li>
+      <li *ngIf="isUserAuthenticated">
+        <a (click)="signout()"> <i class="material-icons left">card_membership</i>{{ 'menu_authenticated.signout' | translate }}</a>
+      </li>
+
+      <!--Authenticated user-->
+    </ul>
+    <a (click)="showSideNavRight()" data-target="right-sidevar" class="sidenav-trigger" style="float: right;" *ngIf="isUserAuthenticated">
+      <i class="material-icons">menu</i>
+    </a>
+  </div>
+</nav>
+<!-- /Desktop navbar -->
+<!-- Mobile navbar -->
+<ul id="mobile_language_dd" class="dropdown-content">
+  <li><a (click)="setLang('en')">English</a></li>
+  <li><a (click)="setLang('es')">Español</a></li>
+</ul>
+
+<ul class="sidenav" id="mobile-demo">
+  <!-- <li>
+    <a class="dropdown-trigger" href="#!" data-target="mobile_language_dd"
+      ><i class="material-icons left">language</i>{{ 'menu.language' | translate }}<i class="material-icons right">arrow_drop_down</i></a
+    >
+  </li> -->
+
+  <!--Anonymous user-->
+  <li *ngIf="!isUserAuthenticated">
+    <a [routerLink]="[lang, 'register']"> <i class="material-icons left">card_membership</i>{{ 'menu.join_now' | translate }}</a>
+  </li>
+  <li *ngIf="!isUserAuthenticated">
+    <a [routerLink]="[lang, '']"> <i class="material-icons left">card_membership</i>{{ 'menu.how_it_works' | translate }}</a>
+  </li>
+  <li *ngIf="!isUserAuthenticated">
+    <a href="badges.html"><i class="material-icons left">card_membership</i>{{ 'menu.plans' | translate }}</a>
+  </li>
+  <li *ngIf="!isUserAuthenticated">
+    <a href="collapsible.html"><i class="material-icons left">local_hospital</i>{{ 'menu.faq' | translate }}</a>
+  </li>
+  <li *ngIf="!isUserAuthenticated">
+    <a [routerLink]="[lang, 'login']"><i class="material-icons left">perm_identity</i>{{ 'menu.signin' | translate }}</a>
+  </li>
+  <!--Anonymous user-->
+
+  <!--Authenticated user-->
+  <li *ngIf="isUserAuthenticated && member_type_id === 1">
+    <a [routerLink]="[lang, '']"> <i class="material-icons left">card_membership</i>{{ 'menu_authenticated.digital_care' | translate }}</a>
+  </li>
+  <li *ngIf="isUserAuthenticated && member_type_id === 1">
+    <a [routerLink]="[lang, '']"> <i class="material-icons left">card_membership</i>{{ 'menu_authenticated.orders' | translate }}</a>
+  </li>
+  <li *ngIf="isUserAuthenticated && member_type_id === 1">
+    <a [routerLink]="[lang, 'account']"> <i class="material-icons left">card_membership</i>{{ 'menu_authenticated.myhub' | translate }}</a>
+  </li>
+  <li *ngIf="isUserAuthenticated && member_type_id === 1">
+    <a (click)="signout()"> <i class="material-icons left">card_membership</i>{{ 'menu_authenticated.signout' | translate }}</a>
+  </li>
+
+  <!--Authenticated user-->
+</ul>
+
+<ul class="sidenav" id="right-sidevar" *ngIf="isUserAuthenticated">
+  <!--Authenticated user-->
+  <li *ngIf="isUserAuthenticated && member_type_id === 1">
+    <a [routerLink]="[lang, '']"> <i class="material-icons left">card_membership</i>{{ 'menu_authenticated.digital_care' | translate }}</a>
+  </li>
+  <li *ngIf="isUserAuthenticated && member_type_id === 1">
+    <a [routerLink]="[lang, '']"> <i class="material-icons left">card_membership</i>{{ 'menu_authenticated.orders' | translate }}</a>
+  </li>
+  <li *ngIf="isUserAuthenticated && member_type_id === 1">
+    <a [routerLink]="[lang, 'account']"> <i class="material-icons left">card_membership</i>{{ 'menu_authenticated.myhub' | translate }}</a>
+  </li>
+  <li *ngIf="isUserAuthenticated">
+    <a (click)="signout()"> <i class="material-icons left">card_membership</i>{{ 'menu_authenticated.signout' | translate }}</a>
+  </li>
+
+  <!--Authenticated user-->
+</ul>
+<!-- /Mobile navbar -->

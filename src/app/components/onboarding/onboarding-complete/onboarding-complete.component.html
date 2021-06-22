@@ -1,0 +1,197 @@
+<div class="row">
+  <div class="col-md-12 text-center">
+    <h1 class="text-center title mb-0">{{'onboarding_complete.title' | translate}}</h1>
+    <h5 class="text-center subtitle mt-0 mb-4">
+      {{'onboarding_complete.subtitle' | translate}}<br />
+      <span>
+        {{'onboarding_complete.reminder' | translate}}
+      </span>
+    </h5>
+  </div>
+</div>
+
+<!-- Stepper -->
+<div class="row justify-content-md-center">
+  <div class="steps-form">
+    <div class="steps-row setup-panel">
+      <div class="steps-step">
+        <button class="btn-step" disabled> <i class="material-icons">check</i> </button>
+      </div>
+      <div class="steps-step">
+        <button class="btn-step" disabled> <i class="material-icons">check</i> </button>
+      </div>
+      <div class="steps-step">
+        <button class="btn-step" disabled> <i class="material-icons">check</i> </button>
+      </div>
+      <div class="steps-step">
+        <button class="btn-step"> <i class="material-icons">flag</i></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row text-center">
+  <div class="col-lg-8 mt-2 mx-auto">
+    <p class="description-one">{{'onboarding_complete.complete' | translate}}</p>
+  </div>
+</div>
+
+
+<div class="row">
+
+  <div class="col-md-4">
+
+    <div class="card text-center">
+      <div class="card-header card-success-header">
+        <p class="card-title mb-0">On-Demand Care</p>
+      </div>
+      <div class="card-body card-warning">
+        <img src="../../../../assets/images/on-demand.png" alt="On Demand Care" class="mb-3" />
+        <p class="on-demand-care-card-text">Visit a doctor, therapist or dermatologist on-demand in minutes using your
+          smart phone,
+          tablet or computer. </p>
+        <button class="btn btn-primary">Launch</button>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="col-md-4">
+
+    <div class="card text-center">
+      <div class="card-header card-success-header">
+        <p class="card-title mb-0">ID Smart Assistant</p>
+      </div>
+      <div class="card-body card-warning">
+        <div class="row">
+          <div class="col-md-2">
+            <i class="material-icons icon">help_outline</i>
+          </div>
+          <div class="col-md-10">
+            <p class="text-justify ide-smart-assistant-card-text">Need a Prescription</p>
+            <p class="text-justify ide-smart-assistant-card-text orange-text">TEXT • COMPARE • BUY</p>
+            <p class="text-justify ide-smart-assistant-card-text">Buy Members only Rx Savings Certificates.</p>
+            <p class="text-justify ide-smart-assistant-card-text">send <strong>TEXT</strong> to:
+              <strong>IDERX</strong> (43379)</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <i class="material-icons icon">help_outline</i>
+          </div>
+          <div class="col-md-10">
+            <p class="text-justify ide-smart-assistant-card-text">
+              Receive instant feedback if your condition can be treated by our Licensed Virtual Physician Care Team.
+            </p>
+            <p class="text-justify ide-smart-assistant-card-text mb-4"> <strong>NO LIVE Consultation Required.</strong>
+            </p>
+            <button class="btn btn-primary">Launch IDE Cares</button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <i class="material-icons icon">help_outline</i>
+          </div>
+          <div class="col-md-10">
+            <p class="text-justify ide-smart-assistant-card-text">
+              Submit your approved Dermatology related condition and let our Virtual Licensed Dermatologist evaluate
+              your condition and issue a prescription if appropriate within a few hours.
+            </p>
+            <p class="text-justify ide-smart-assistant-card-text mb-4"> <strong><strong>NO LIVE Consultation
+                  Required.</strong></strong> </p>
+            <button class="btn btn-primary">Launch IDE Derm</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Options for Primary Member -->
+  <div class="col-md-4 text-center" *ngIf="memberTypeId === 1">
+
+    <div class="row">
+      <div class="col-md-4">
+        <i class="material-icons icon">developer_board</i>
+      </div>
+      <div class="col-md-8 pointer" (click)="goToDashboard('../account')">
+        <p class="text-option">
+          Go To My <br> Experience Hub
+        </p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4">
+        <i class="material-icons icon">account_circle</i>
+      </div>
+      <div class="col-md-8 pointer" (click)="goToDashboard('../account/family')">
+        <p class="text-option">
+          Add or Invite <br> Members
+        </p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4">
+        <i class="material-icons icon">credit_card</i>
+      </div>
+      <div class="col-md-8 pointer" (click)="goToDashboard('../membership-card')">
+        <p class="text-option">
+          View My <br> Membership Card
+        </p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="col-md-4 text-center" *ngIf="memberTypeId !== 1">
+
+    <div class="row">
+      <div class="col-md-4">
+        <i class="material-icons icon">developer_board</i>
+      </div>
+      <div class="col-md-8 pointer" (click)="goToDashboard('../account')">
+        <p class="text-option">
+          Go To My <br> Experience Hub
+        </p>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<!--
+<div class="card-deck" *ngIf="memberTypeId === 1">
+  <div class="card text-center pointer" (click)="goToDashboard('../account')">
+    <div class="card-body">
+      <i class="material-icons icon">developer_board</i>
+      <p class="card-text">{{'onboarding_complete.my_dashboard' | translate}}</p>
+    </div>
+  </div>
+  <div class="card text-center pointer" (click)="goToDashboard('../account/family')">
+    <div class="card-body">
+      <i class="material-icons icon">account_circle</i>
+      <p class="card-text">{{'onboarding_complete.invite_members' | translate}}</p>
+    </div>
+  </div>
+  <div class="card text-center pointer" (click)="goToDashboard('../membership-card')">
+    <div class="card-body">
+      <i class="material-icons icon">credit_card</i>
+      <p class="card-text">{{'onboarding_complete.membership_card' | translate}}</p>
+    </div>
+  </div>
+</div>
+
+<div class="row" *ngIf="memberTypeId !== 1">
+  <div class="col-md-4 offset-md-4">
+    <div class="card text-center pointer" (click)="goToDashboard('../account')">
+      <div class="card-body">
+        <i class="material-icons icon">developer_board</i>
+        <p class="card-text">{{'onboarding_complete.my_dashboard' | translate}}</p>
+      </div>
+    </div>
+  </div>
+</div>
+-->
